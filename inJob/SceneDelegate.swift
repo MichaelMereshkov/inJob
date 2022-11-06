@@ -23,8 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let responsesVC = ResponsesBuilder.build()
         let profileVC = ProfileBuilder.build()
         
+        /// NavigationController
+        let navAddVC = UINavigationController(rootViewController: addVC)
+        let navProfileVC = UINavigationController(rootViewController: profileVC)
+        
         let tabBarVC = UITabBarController()
-        tabBarVC.setViewControllers([searchVC, favoritesVC, addVC, responsesVC, profileVC], animated: true)
+        tabBarVC.setViewControllers([searchVC, favoritesVC, navAddVC, responsesVC, navProfileVC], animated: true)
         window.rootViewController = tabBarVC
         window.makeKeyAndVisible()
         self.window = window

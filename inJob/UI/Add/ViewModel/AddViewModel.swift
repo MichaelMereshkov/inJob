@@ -36,6 +36,9 @@ final class AddViewModel: AddViewModelProtocol {
 
     init(router: AddRouterProtocol) {
         self.router = router
+        var item = [TableCellViewModelProtocol]()
+        item.append(AddItemsViewModel(title: "Название / категория", result: 10, keyboardType: .default))
+        sections.append(SectionItemsViewModel(items: item))
     }
 
     // MARK: - Functions

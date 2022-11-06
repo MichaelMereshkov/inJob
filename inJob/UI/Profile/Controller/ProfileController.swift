@@ -11,30 +11,105 @@ final class ProfileController: UIViewController {
 
     // MARK: - Views
 
-    private lazy var backBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: self, action: #selector(backBarButtonDidTap))
-        barButton.imageInsets = UIEdgeInsets(top: 0, left: -13.0, bottom: 0, right: 13.0)
-        return barButton
+    private lazy var viewProfile: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
+        view.layer.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .clear
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-
-//        tableView.register(DepositViewCell.self)
-//        tableView.register(DepositClinicsView.self)
-//        tableView.register(DepositInfoStoryView.self)
-//        tableView.register(DepositInfoPaymentView.self)
-//        tableView.register(DepositNotReplenishView.self)
-
-        return tableView
+    
+    private lazy var imageLog: UIImageView = {
+        let image = UIImageView()
+        image.layer.cornerRadius = 50
+        image.layer.masksToBounds = true
+        image.image = #imageLiteral(resourceName: "ava")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label: UILabel = UILabel()
+        label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.text = "Киборг Убийца"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var valueLabel: UILabel = {
+        let label: UILabel = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.text = "+7(928)***-**-54"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var viewCell1: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
+        view.layer.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var viewCell2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
+        view.layer.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var titleCell1Label: UILabel = {
+        let label: UILabel = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.text = "Настройки"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var titleCell2Label: UILabel = {
+        let label: UILabel = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.text = "Мои объявления"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var imageLog1: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "gearshape.fill")
+        image.tintColor = .darkGray
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var imageLog2: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "plus")
+        image.tintColor = .darkGray
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var imageMark1: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "chevron.right")
+        image.tintColor = .gray
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var imageMark2: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "chevron.right")
+        image.tintColor = .gray
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
     }()
 
     // MARK: - Private properties
@@ -46,8 +121,9 @@ final class ProfileController: UIViewController {
     init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.title = "Профиль"
-        self.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        var tabBarItem = UITabBarItem()
+        tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), tag: 4)
+        self.tabBarItem = tabBarItem
     }
 
     required init?(coder: NSCoder) {
@@ -65,18 +141,81 @@ final class ProfileController: UIViewController {
 
     private func setupAppearance() {
         view.backgroundColor = .white
+        navigationItem.title = "Профиль"
 
-        view.addSubview(tableView)
+        view.addSubview(viewProfile)
+        view.addSubview(imageLog)
+        view.addSubview(titleLabel)
+        view.addSubview(valueLabel)
+        view.addSubview(viewCell1)
+        view.addSubview(viewCell2)
+        view.addSubview(imageLog1)
+        view.addSubview(imageLog2)
+        view.addSubview(titleCell1Label)
+        view.addSubview(titleCell2Label)
+        view.addSubview(imageMark1)
+        view.addSubview(imageMark2)
         
         setupConstraints()
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            viewProfile.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            viewProfile.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            viewProfile.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            
+            imageLog.leftAnchor.constraint(equalTo: viewProfile.leftAnchor, constant: 8),
+            imageLog.topAnchor.constraint(equalTo: viewProfile.topAnchor, constant: 8),
+            imageLog.bottomAnchor.constraint(equalTo: viewProfile.bottomAnchor, constant: -8),
+            imageLog.widthAnchor.constraint(equalToConstant: 100),
+            imageLog.heightAnchor.constraint(equalTo: imageLog.widthAnchor),
+            
+            titleLabel.leftAnchor.constraint(equalTo: imageLog.rightAnchor, constant: 12),
+            titleLabel.rightAnchor.constraint(equalTo: viewProfile.rightAnchor, constant: -12),
+            titleLabel.topAnchor.constraint(equalTo: imageLog.topAnchor),
+            
+            valueLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor),
+            valueLabel.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
+            valueLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            
+            viewCell1.leftAnchor.constraint(equalTo: viewProfile.leftAnchor),
+            viewCell1.rightAnchor.constraint(equalTo: viewProfile.rightAnchor),
+            viewCell1.topAnchor.constraint(equalTo: viewProfile.bottomAnchor, constant: 16),
+            
+            viewCell2.leftAnchor.constraint(equalTo: viewProfile.leftAnchor),
+            viewCell2.rightAnchor.constraint(equalTo: viewProfile.rightAnchor),
+            viewCell2.topAnchor.constraint(equalTo: viewCell1.bottomAnchor, constant: 8),
+            
+            imageLog1.leftAnchor.constraint(equalTo: viewCell1.leftAnchor, constant: 10),
+            imageLog1.topAnchor.constraint(equalTo: viewCell1.topAnchor, constant: 10),
+            imageLog1.bottomAnchor.constraint(equalTo: viewCell1.bottomAnchor, constant: -10),
+            imageLog1.heightAnchor.constraint(equalToConstant: 24),
+            imageLog1.widthAnchor.constraint(equalTo: imageLog1.heightAnchor),
+            
+            imageLog2.leftAnchor.constraint(equalTo: viewCell2.leftAnchor, constant: 10),
+            imageLog2.topAnchor.constraint(equalTo: viewCell2.topAnchor, constant: 10),
+            imageLog2.bottomAnchor.constraint(equalTo: viewCell2.bottomAnchor, constant: -10),
+            imageLog2.heightAnchor.constraint(equalToConstant: 24),
+            imageLog2.widthAnchor.constraint(equalTo: imageLog2.heightAnchor),
+            
+            titleCell1Label.leftAnchor.constraint(equalTo: imageLog1.rightAnchor, constant: 8),
+            titleCell1Label.rightAnchor.constraint(equalTo: imageMark1.leftAnchor, constant: -4),
+            titleCell1Label.centerYAnchor.constraint(equalTo: imageLog1.centerYAnchor),
+            
+            titleCell2Label.leftAnchor.constraint(equalTo: imageLog2.rightAnchor, constant: 8),
+            titleCell2Label.rightAnchor.constraint(equalTo: imageMark2.leftAnchor, constant: -4),
+            titleCell2Label.centerYAnchor.constraint(equalTo: imageLog2.centerYAnchor),
+            
+            imageMark1.rightAnchor.constraint(equalTo: viewCell1.rightAnchor, constant: -8),
+            imageMark1.centerYAnchor.constraint(equalTo: viewCell1.centerYAnchor),
+            imageMark1.heightAnchor.constraint(equalToConstant: 16),
+            imageMark1.widthAnchor.constraint(equalToConstant: 7),
+            
+            imageMark2.rightAnchor.constraint(equalTo: viewCell2.rightAnchor, constant: -8),
+            imageMark2.centerYAnchor.constraint(equalTo: viewCell2.centerYAnchor),
+            imageMark2.heightAnchor.constraint(equalToConstant: 16),
+            imageMark2.widthAnchor.constraint(equalToConstant: 7),
         ])
     }
 
@@ -89,43 +228,5 @@ final class ProfileController: UIViewController {
 
     @objc func didTapButton() {
         //viewModel.didTapAddButton()
-    }
-}
-
-
-// MARK: - UITableViewDataSource
-
-extension ProfileController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.sections[indexPath.section].items[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: item.cellId, for: indexPath)
-        if let cell = cell as? TableCellConfigurable {
-            cell.setup(viewModel: item)
-        }
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.sections.element(at: section)?.items.count ?? 0
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension ProfileController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //viewModel.didSelectItem(at: indexPath)
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 12
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.sections.count
     }
 }

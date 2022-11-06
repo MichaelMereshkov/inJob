@@ -38,6 +38,7 @@ final class SearchViewModel: SearchViewModelProtocol {
         self.router = router
         
         allItems.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000))
+        allItems.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000))
         sections.append(SectionItemsViewModel(items: allItems))
     }
 
