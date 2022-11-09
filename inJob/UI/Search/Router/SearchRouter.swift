@@ -7,8 +7,11 @@
 
 import UIKit
 
-protocol SearchRouterProtocol: AnyObject {
+ public protocol SearchRouterProtocol: AnyObject {
     
+    // MARK: - Functions
+    
+    func openContacts(textName: String, textPhone: String, textMail: String)
 }
 
 final class SearchRouter: SearchRouterProtocol {
@@ -18,5 +21,10 @@ final class SearchRouter: SearchRouterProtocol {
     weak var presenter: UIViewController?
 
     // MARK: - Functions
+    
+    func openContacts(textName: String, textPhone: String, textMail: String) {
+        let controller = ContactsBuilder.build(textName: textName, textPhone: textPhone, textMail: textMail)
+        presenter?.present(controller, animated: true)
+    }
     
 }

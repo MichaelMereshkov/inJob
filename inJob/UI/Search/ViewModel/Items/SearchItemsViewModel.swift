@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol SearchItemsViewModelProtocol: AnyObject {
+public protocol SearchItemsViewModelProtocol: AnyObject {
     
     // MARK: - Properties
     
@@ -17,6 +17,10 @@ protocol SearchItemsViewModelProtocol: AnyObject {
     var value: String { get }
     var location: String { get } 
     var sum: Int { get }
+    var textName: String { get }
+    var textPhone: String { get }
+    var textMail: String { get }
+    var router: SearchRouterProtocol? { get }
     
 }
 final class SearchItemsViewModel: SearchItemsViewModelProtocol, TableCellViewModelProtocol {
@@ -33,15 +37,23 @@ final class SearchItemsViewModel: SearchItemsViewModelProtocol, TableCellViewMod
     var value: String
     var location: String
     var sum: Int
+    var textName: String
+    var textPhone: String
+    var textMail: String
+    var router: SearchRouterProtocol?
 
     // MARK: - Constructor
 
-    init(image: UIImage, title: String, value: String, location: String, sum: Int) {
+    init(image: UIImage, title: String, value: String, location: String, sum: Int, textName: String, textPhone: String, textMail: String, router: SearchRouterProtocol?) {
         self.image = image
         self.title = title
         self.value = value
         self.location = location
         self.sum = sum
+        self.textName = textName
+        self.textPhone = textPhone
+        self.textMail = textMail
+        self.router = router
     }
 }
 

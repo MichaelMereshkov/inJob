@@ -14,6 +14,7 @@ final class SearchController: UIViewController {
     private lazy var imageLog: UIImageView = {
         let image = UIImageView()
         image.image = #imageLiteral(resourceName: "log_search")
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -61,6 +62,12 @@ final class SearchController: UIViewController {
         super.viewDidLoad()
         setupAppearance()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetch()
+        tableView.reloadData()
+    }
 
     // MARK: - Private functions
 
@@ -75,7 +82,7 @@ final class SearchController: UIViewController {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageLog.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            imageLog.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageLog.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageLog.widthAnchor.constraint(equalToConstant: 70),
             imageLog.heightAnchor.constraint(equalToConstant: 30),

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "2022-11-05 22.12.38.jpg",
+      "filename" : "default_icon.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "2022-11-05 22.12.38 1.jpg",
+      "filename" : "default_icon 1.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "2022-11-05 22.12.38 2.jpg",
+      "filename" : "default_icon 2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }

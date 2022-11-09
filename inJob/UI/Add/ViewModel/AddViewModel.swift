@@ -11,6 +11,7 @@ protocol AddViewModelProtocol: AnyObject {
     
     // MARK: - Properties
 
+    var router: SearchRouterProtocol { get }
     var sections: [SectionViewModelProtocol] { get }
 }
 
@@ -21,7 +22,7 @@ final class AddViewModel: AddViewModelProtocol {
 
     // MARK: - Properties
 
-    var router: AddRouterProtocol
+    var router: SearchRouterProtocol
     var sections: [SectionViewModelProtocol] = []
     
     // MARK: - Private properties
@@ -34,11 +35,11 @@ final class AddViewModel: AddViewModelProtocol {
 
     // MARK: - Constructor
 
-    init(router: AddRouterProtocol) {
+    init(router: SearchRouterProtocol) {
         self.router = router
         var item = [TableCellViewModelProtocol]()
-        item.append(AddItemsViewModel(title: "Название / категория", result: 10, keyboardType: .default))
-        sections.append(SectionItemsViewModel(items: item))
+//        item.append(AddItemsViewModel(title: "Название / категория", result: 10, keyboardType: .default))
+//        sections.append(SectionItemsViewModel(items: item))
     }
 
     // MARK: - Functions

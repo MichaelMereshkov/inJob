@@ -12,6 +12,10 @@ protocol SearchViewModelProtocol: AnyObject {
     // MARK: - Properties
 
     var sections: [SectionViewModelProtocol] { get }
+    
+    // MARK: - Functions
+
+    func fetch()
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
@@ -37,13 +41,19 @@ final class SearchViewModel: SearchViewModelProtocol {
     init(router: SearchRouterProtocol) {
         self.router = router
         
-        allItems.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000))
-        allItems.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000))
-        sections.append(SectionItemsViewModel(items: allItems))
+        var items = [TableCellViewModelProtocol]()
+        items.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород 6", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000, textName: "Дурак Никита", textPhone: "+7(928)232-36-89", textMail: "digital@mail.ru", router: router))
+        items.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород 6", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000, textName: "Дурак Никита", textPhone: "+7(928)232-36-89", textMail: "digital@mail.ru", router: router))
+        items.append(SearchItemsViewModel(image: #imageLiteral(resourceName: "sad"), title: "Вспахать огород 6", value: "Нужно вспахать огород, земля 5 соток, все инструменты имеются.", location: "Назрань", sum: 4000, textName: "Дурак Никита", textPhone: "+7(928)232-36-89", textMail: "digital@mail.ru", router: router))
+        
+        sections.append(SectionItemsViewModel(items: items))
     }
 
     // MARK: - Functions
 
+    func fetch() {
+        sections.append(SectionItemsViewModel(items: allItems))
+    }
 
     // MARK: - Private functions
     

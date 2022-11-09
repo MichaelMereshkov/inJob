@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D42808A0291AA73D0083E826 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D428089F291AA73D0083E826 /* ContactsViewModel.swift */; };
+		D42808A2291AA7C50083E826 /* ContactsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42808A1291AA7C50083E826 /* ContactsRouter.swift */; };
+		D42808A4291AA7E10083E826 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42808A3291AA7E10083E826 /* ContactsController.swift */; };
+		D42808A6291AA7F00083E826 /* ContactsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42808A5291AA7F00083E826 /* ContactsBuilder.swift */; };
 		D46AC0D729169C1800CBC039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46AC0D629169C1800CBC039 /* AppDelegate.swift */; };
 		D46AC0D929169C1800CBC039 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46AC0D829169C1800CBC039 /* SceneDelegate.swift */; };
 		D46AC0DB29169C1800CBC039 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46AC0DA29169C1800CBC039 /* SearchController.swift */; };
@@ -68,6 +72,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D428089F291AA73D0083E826 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
+		D42808A1291AA7C50083E826 /* ContactsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsRouter.swift; sourceTree = "<group>"; };
+		D42808A3291AA7E10083E826 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
+		D42808A5291AA7F00083E826 /* ContactsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsBuilder.swift; sourceTree = "<group>"; };
 		D46AC0D329169C1800CBC039 /* inJob.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inJob.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46AC0D629169C1800CBC039 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D46AC0D829169C1800CBC039 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +148,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4280899291AA5EA0083E826 /* Additional controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D428089E291AA6D30083E826 /* Contacts */,
+			);
+			path = "Additional controllers";
+			sourceTree = "<group>";
+		};
+		D428089A291AA6620083E826 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D428089F291AA73D0083E826 /* ContactsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D428089B291AA66F0083E826 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				D42808A1291AA7C50083E826 /* ContactsRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		D428089C291AA67C0083E826 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D42808A3291AA7E10083E826 /* ContactsController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D428089D291AA6870083E826 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				D42808A5291AA7F00083E826 /* ContactsBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		D428089E291AA6D30083E826 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				D428089D291AA6870083E826 /* Builder */,
+				D428089C291AA67C0083E826 /* Controller */,
+				D428089B291AA66F0083E826 /* Router */,
+				D428089A291AA6620083E826 /* ViewModel */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
 		D46AC0CA29169C1800CBC039 = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +380,7 @@
 				D46AC1282916C59100CBC039 /* Add */,
 				D46AC1272916C58E00CBC039 /* Responses */,
 				D46AC1292916C65200CBC039 /* Profile */,
+				D4280899291AA5EA0083E826 /* Additional controllers */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -623,17 +683,21 @@
 				D46AC16C291703D200CBC039 /* UIButton+Extension.swift in Sources */,
 				D46AC1112916B0C900CBC039 /* SearchViewModel.swift in Sources */,
 				D46AC1622916F5AC00CBC039 /* SearchItemsViewModel.swift in Sources */,
+				D42808A6291AA7F00083E826 /* ContactsBuilder.swift in Sources */,
 				D46AC1152916B1F300CBC039 /* SearchBuilder.swift in Sources */,
 				D46AC1642916F68700CBC039 /* SearchViewCell.swift in Sources */,
 				D46AC173291812CC00CBC039 /* AddViewCell.swift in Sources */,
 				D46AC0DB29169C1800CBC039 /* SearchController.swift in Sources */,
 				D46AC0D729169C1800CBC039 /* AppDelegate.swift in Sources */,
 				D46AC1542916C89100CBC039 /* ResponsesController.swift in Sources */,
+				D42808A0291AA73D0083E826 /* ContactsViewModel.swift in Sources */,
 				D46AC0D929169C1800CBC039 /* SceneDelegate.swift in Sources */,
 				D46AC1232916BEC200CBC039 /* GlobalVariable.swift in Sources */,
+				D42808A2291AA7C50083E826 /* ContactsRouter.swift in Sources */,
 				D46AC1562916C89B00CBC039 /* ResponsesBuilder.swift in Sources */,
 				D46AC1402916C7F300CBC039 /* FavoritesRouter.swift in Sources */,
 				D46AC1202916B96100CBC039 /* RandomCollection+Extensions.swift in Sources */,
+				D42808A4291AA7E10083E826 /* ContactsController.swift in Sources */,
 				D46AC1442916C81400CBC039 /* FavoritesBuilder.swift in Sources */,
 				D46AC15C2916C8C300CBC039 /* ProfileController.swift in Sources */,
 				D46AC15A2916C8B700CBC039 /* ProfileRouter.swift in Sources */,

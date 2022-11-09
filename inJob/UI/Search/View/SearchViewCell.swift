@@ -11,8 +11,27 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
 
     // MARK: - Views
     
+    private lazy var iconImageView: UIImageView = {
+        let iconImageView = UIImageView()
+        iconImageView.image = UIImage(systemName: "heart.fill")
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return iconImageView
+    }()
+    
+    private lazy var iconImage: UIButton = {
+        let iconImage = UIButton()
+        iconImage.setImage(iconImageView.image, for: .normal)
+        iconImage.tintColor = .white
+        iconImage.addTarget(self, action: #selector(touchConfirmButton), for: .touchUpInside)
+        iconImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        return iconImage
+    }()
+    
     private lazy var imageLog: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 10
         image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         image.layer.masksToBounds = true
@@ -56,10 +75,11 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
         let button: UIButton = UIButton()
         button.setBackgroundColor(.white, for: .normal)
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = 16
-        button.setTitle("КОНТАКТЫ", for: .normal)
-        button.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        button.layer.cornerRadius = 21
+        button.setTitle("Контакты", for: .normal)
+        button.layer.borderColor = UIColor(ciColor: .gray).cgColor
         button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         button.setTitleColor(.black, for: .normal)
@@ -74,10 +94,10 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     
     private lazy var buttonResponses: UIButton = {
         let button: UIButton = UIButton()
-        button.setBackgroundColor(.black, for: .normal)
-        button.layer.cornerRadius = 16
+        button.setBackgroundColor(.gray, for: .normal)
+        button.layer.cornerRadius = 21
         button.layer.masksToBounds = true
-        button.setTitle("ОТКЛИКНУТЬСЯ", for: .normal)
+        button.setTitle("Откликнуться", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         button.setTitleColor(.white, for: .normal)
@@ -105,6 +125,8 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
         return formatter
     }()
 
+    private var viewModel: SearchItemsViewModelProtocol?
+    
     // MARK: - Constructor
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -135,6 +157,7 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
 
     func setup(viewModel: TableCellViewModelProtocol) {
         guard let viewModel = viewModel as? SearchItemsViewModelProtocol else { return }
+        self.viewModel = viewModel
 
         imageLog.image = viewModel.image
         titleLabel.text = viewModel.title
@@ -154,6 +177,8 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
         layer.cornerRadius = 10
 
         contentView.addSubview(imageLog)
+        contentView.addSubview(iconImage)
+        iconImage.addSubview(iconImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(valueLabel)
         contentView.addSubview(locationLabel)
@@ -170,6 +195,14 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
             imageLog.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             imageLog.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageLog.heightAnchor.constraint(equalToConstant: 150),
+            
+            iconImage.rightAnchor.constraint(equalTo: imageLog.rightAnchor, constant: -10),
+            iconImage.topAnchor.constraint(equalTo: imageLog.topAnchor, constant: 10),
+            iconImage.heightAnchor.constraint(equalToConstant: 30),
+            iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
+            
+            iconImageView.widthAnchor.constraint(equalTo: iconImage.widthAnchor),
+            iconImageView.heightAnchor.constraint(equalTo: iconImage.heightAnchor),
             
             titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
@@ -196,5 +229,21 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
             buttonResponses.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
             buttonResponses.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 10),
         ])
+    }
+    
+    // MARK: - Actions
+
+    @objc
+    func touchConfirmButton() {
+        if iconImage.tintColor == .white {
+            iconImage.tintColor = .red
+        } else if iconImage.tintColor == .red {
+            iconImage.tintColor = .white
+        }
+    }
+    
+    @objc
+    func didTapButton() {
+        viewModel?.router?.openContacts(textName: viewModel?.textName ?? "", textPhone: viewModel?.textPhone ?? "", textMail: viewModel?.textMail ?? "")
     }
 }

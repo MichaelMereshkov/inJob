@@ -11,26 +11,45 @@ final class AddController: UIViewController {
     
     // MARK: - Views
     
+    private lazy var scrollView: UIScrollView = {
+        let image = UIScrollView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var addView: UIView = {
+        let image = UIView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     private lazy var imageLog: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 10
+//        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         image.layer.masksToBounds = true
+        image.contentMode = .scaleAspectFill
+        image.image = #imageLiteral(resourceName: "default_icon")
+        //image.tintColor = .gray
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
     private lazy var buttonPhoto: UIButton = {
         let button: UIButton = UIButton()
-        button.backgroundColor = .white
+        button.backgroundColor = .gray
         button.layer.cornerRadius = 10
-        button.setTitle("Добавить фото", for: .normal)
+        button.setTitle("  Добавить фото", for: .normal)
         button.layer.masksToBounds = true
-        button.imageView?.image = UIImage(systemName: "photo")
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        //button.layer.borderWidth = 1
+        //button.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
-        button.setTitleColor(.darkGray, for: .normal)
+        button.setTitleColor(.white, for: .normal)
 
         return button
     }()
@@ -96,7 +115,7 @@ final class AddController: UIViewController {
         let textView = UITextView()
         textView.delegate = self
         textView.font = .systemFont(ofSize: 18, weight: .regular)
-        textField.addTarget(self, action: #selector(textViewAllEvents), for: .allEvents)
+        //textView.add addTarget(self, action: #selector(textViewAllEvents), for: .allEvents)
         //textField.addTarget(self, action: #selector(textViewEditingChanged), for: .editingChanged)
         textView.textAlignment = .left
         textView.backgroundColor = .white
@@ -182,34 +201,19 @@ final class AddController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Добавить объявление", for: .normal)
         button.layer.masksToBounds = true
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(backBarButtonDidTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
         button.setTitleColor(.white, for: .normal)
 
         return button
     }()
-//    private lazy var tableView: UITableView = {
-//        let tableView = UITableView()
-//        tableView.backgroundColor = .clear
-//        tableView.dataSource = self
-//        tableView.delegate = self
-//        tableView.separatorStyle = .none
-//        tableView.showsVerticalScrollIndicator = false
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-//
-//        tableView.register(AddViewCell.self)
-////        tableView.register(DepositClinicsView.self)
-////        tableView.register(DepositInfoStoryView.self)
-////        tableView.register(DepositInfoPaymentView.self)
-////        tableView.register(DepositNotReplenishView.self)
-//
-//        return tableView
-//    }()
 
     // MARK: - Private properties
 
+    private var kbFrameSize = CGRect()
+    private var router: SearchRouterProtocol?
     private let viewModel: AddViewModelProtocol
 
     // MARK: - Initialization
@@ -223,6 +227,10 @@ final class AddController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("AddController ::: init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        removeKeyboardNotifications()
     }
 
     // MARK: - LifeCycle
@@ -239,54 +247,90 @@ final class AddController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Добавить объявление"
         
-        view.addSubview(imageLog)
-        view.addSubview(buttonPhoto)
+        view.addSubview(scrollView)
+        scrollView.addSubview(addView)
+        
+        addView.addSubview(imageLog)
+        addView.addSubview(buttonPhoto)
 
-        view.addSubview(viewCategory)
-        view.addSubview(titleLabel)
-        view.addSubview(textField)
+        addView.addSubview(viewCategory)
+        addView.addSubview(titleLabel)
+        addView.addSubview(textField)
         
-        view.addSubview(viewDescription)
-        view.addSubview(descriptionLabel)
-        view.addSubview(textView)
+        addView.addSubview(viewDescription)
+        addView.addSubview(descriptionLabel)
+        addView.addSubview(textView)
         
-        view.addSubview(viewLocation)
-        view.addSubview(locationLabel)
-        view.addSubview(locationField)
+        addView.addSubview(viewLocation)
+        addView.addSubview(locationLabel)
+        addView.addSubview(locationField)
         
-        view.addSubview(viewSum)
-        view.addSubview(sumLabel)
-        view.addSubview(sumField)
+        addView.addSubview(viewSum)
+        addView.addSubview(sumLabel)
+        addView.addSubview(sumField)
         
         view.addSubview(button)
-        //view.addSubview(tableView)
+        
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         setupConstraints()
+        registerForKeyboardNotifications()
+    }
+    
+    func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: AddController.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: AddController.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: AddController.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AddController.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        kbFrameSize = (userInfo?[AddController.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        scrollView.contentOffset = CGPoint(x: 0, y: kbFrameSize.height - view.safeAreaInsets.bottom - 25)
+    }
+    
+    @objc func kbWillHide() {
+        scrollView.contentOffset = CGPoint.zero
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            // MARK: - Constraints
-            imageLog.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            imageLog.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            imageLog.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            imageLog.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            buttonPhoto.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            buttonPhoto.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            addView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            addView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            addView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            addView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            addView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            addView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            // MARK: - Constraints
+            imageLog.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            imageLog.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
+            imageLog.topAnchor.constraint(equalTo: addView.safeAreaLayoutGuide.topAnchor, constant: 4),
+            imageLog.bottomAnchor.constraint(equalTo: addView.centerYAnchor, constant: -100),
+            
+            buttonPhoto.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            buttonPhoto.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
             buttonPhoto.topAnchor.constraint(equalTo: imageLog.bottomAnchor, constant: 8),
             buttonPhoto.heightAnchor.constraint(equalToConstant: 40),
             
             // MARK: - Constraints 1
-            titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            titleLabel.topAnchor.constraint(equalTo: buttonPhoto.bottomAnchor, constant: 8),
+            titleLabel.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: buttonPhoto.bottomAnchor, constant: 32),
             
-            viewCategory.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            viewCategory.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            viewCategory.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            viewCategory.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
             viewCategory.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1),
             
             textField.leftAnchor.constraint(equalTo: viewCategory.leftAnchor, constant: 4),
@@ -295,8 +339,8 @@ final class AddController: UIViewController {
             textField.bottomAnchor.constraint(equalTo: viewCategory.bottomAnchor, constant: -4),
             
             // MARK: - Constraints 2
-            descriptionLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            descriptionLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            descriptionLabel.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            descriptionLabel.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
             descriptionLabel.topAnchor.constraint(equalTo: viewCategory.bottomAnchor, constant: 8),
             
             viewDescription.leftAnchor.constraint(equalTo: viewCategory.leftAnchor),
@@ -310,8 +354,8 @@ final class AddController: UIViewController {
             textView.heightAnchor.constraint(equalToConstant: 100),
             
             // MARK: - Constraints 3
-            locationLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            locationLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            locationLabel.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            locationLabel.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
             locationLabel.topAnchor.constraint(equalTo: viewDescription.bottomAnchor, constant: 8),
             
             viewLocation.leftAnchor.constraint(equalTo: viewCategory.leftAnchor),
@@ -324,8 +368,8 @@ final class AddController: UIViewController {
             locationField.bottomAnchor.constraint(equalTo: viewLocation.bottomAnchor, constant: -4),
             
             // MARK: - Constraints 4
-            sumLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            sumLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            sumLabel.leftAnchor.constraint(equalTo: addView.leftAnchor, constant: 16),
+            sumLabel.rightAnchor.constraint(equalTo: addView.rightAnchor, constant: -16),
             sumLabel.topAnchor.constraint(equalTo: viewLocation.bottomAnchor, constant: 8),
             
             viewSum.leftAnchor.constraint(equalTo: viewCategory.leftAnchor),
@@ -339,19 +383,15 @@ final class AddController: UIViewController {
             
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             button.heightAnchor.constraint(equalToConstant: 40),
-            
-//            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-//            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-//            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
     private func setupButton() {
         if textField.text != "", textView.text != "", locationField.text != "", sumField.text != "" {
             button.backgroundColor = .black
+            button.isEnabled = true
         } else {
             button.backgroundColor = .gray
         }
@@ -370,8 +410,14 @@ final class AddController: UIViewController {
     @objc func textFieldAllEvents(textField: UITextField) {
         let completeString = textField.text
         
+        
+        
         if completeString != "" {
             setupButton()
+        }
+        
+        if let t: String = textField.text {
+            textField.text = String(t.prefix(40))
         }
             
     }
@@ -382,7 +428,10 @@ final class AddController: UIViewController {
         if completeString != "" {
             setupButton()
         }
-            
+        
+        if let t: String = textView.text {
+            textView.text = String(t.prefix(110))
+        }
     }
     
     @objc func locationFieldAllEvents(textField: UITextField) {
@@ -391,7 +440,10 @@ final class AddController: UIViewController {
         if completeString != "" {
             setupButton()
         }
-            
+        
+        if let t: String = textField.text {
+            textField.text = String(t.prefix(40))
+        }
     }
     
     @objc func sumFieldAllEvents(textField: UITextField) {
@@ -400,16 +452,43 @@ final class AddController: UIViewController {
         if completeString != "" {
             setupButton()
         }
-            
+        
+        if let t: String = textField.text {
+            textField.text = String(t.prefix(6))
+        }
     }
 
     @objc
     private func backBarButtonDidTap() {
-        //viewModel.dismiss()
+        allItems.removeAll()
+        allItems = [SearchItemsViewModel(image: imageLog.image!, title: textField.text ?? "", value: textView.text, location: locationField.text ?? "", sum: Int(sumField.text ?? "") ?? 0, textName: textName, textPhone: textPhone, textMail: textMail, router: viewModel.router)]
+        imageLog.image = #imageLiteral(resourceName: "default_icon")
+        textField.text = ""
+        textView.text = ""
+        locationField.text = ""
+        sumField.text = ""
     }
 
-    @objc func didTapButton() {
-        //viewModel.didTapAddButton()
+    @objc
+    func didTapButton() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+}
+
+extension AddController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image  = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            imageLog.image = image
+        }
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }
 
@@ -417,17 +496,17 @@ final class AddController: UIViewController {
 
 extension AddController: UITextFieldDelegate {
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentCharacterCount = textField.text?.count ?? 0
-
-        if range.length + range.location > currentCharacterCount {
-            return false
-        }
-
-        let newLength = currentCharacterCount + string.count - range.length
-
-        return newLength <= 9
-    }
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        let currentCharacterCount = textField.text?.count ?? 0
+//
+//        if range.length + range.location > currentCharacterCount {
+//            return false
+//        }
+//
+//        let newLength = currentCharacterCount + string.count - range.length
+//
+//        return newLength <= 9
+//    }
 }
 
 
@@ -436,40 +515,3 @@ extension AddController: UITextFieldDelegate {
 extension AddController: UITextViewDelegate {
 
 }
-
-// MARK: - UITableViewDataSource
-
-//extension AddController: UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let item = viewModel.sections[indexPath.section].items[indexPath.row]
-//        let cell = tableView.dequeueReusableCell(withIdentifier: item.cellId, for: indexPath)
-//        if let cell = cell as? TableCellConfigurable {
-//            cell.setup(viewModel: item)
-//        }
-//        return cell
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return viewModel.sections.element(at: section)?.items.count ?? 0
-//    }
-//}
-//
-//// MARK: - UITableViewDelegate
-//
-//extension AddController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        //viewModel.didSelectItem(at: indexPath)
-//    }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 12
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return viewModel.sections.count
-//    }
-//}
