@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 final class AddController: UIViewController {
     
@@ -460,8 +461,31 @@ final class AddController: UIViewController {
 
     @objc
     private func backBarButtonDidTap() {
-        allItems.removeAll()
-        allItems = [SearchItemsViewModel(image: imageLog.image!, title: textField.text ?? "", value: textView.text, location: locationField.text ?? "", sum: Int(sumField.text ?? "") ?? 0, textName: textName, textPhone: textPhone, textMail: textMail, router: viewModel.router)]
+//        allItems.removeAll()
+//        allItems = [SearchItemsViewModel(image: imageLog.image!, title: textField.text ?? "", value: textView.text, location: locationField.text ?? "", sum: Int(sumField.text ?? "") ?? 0, textName: textName, textPhone: textPhone, textMail: textMail, router: viewModel.router)]
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "Items", in: context) else { return }
+        
+        let taskObject = Items(entity: entity, insertInto: context)
+        let jpegImageData = imageLog.image?.jpegData(compressionQuality: 1.0)
+        taskObject.image = jpegImageData
+        taskObject.title = textField.text
+        taskObject.value = textView.text
+        taskObject.location = locationField.text
+        taskObject.sum = Int64(sumField.text ?? "") ?? 0
+        taskObject.textName = textName
+        taskObject.textPhone = textPhone
+        taskObject.textMail = textMail
+        
+        do {
+            try context.save()
+            //items.append(taskObject)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
         imageLog.image = #imageLiteral(resourceName: "default_icon")
         textField.text = ""
         textView.text = ""

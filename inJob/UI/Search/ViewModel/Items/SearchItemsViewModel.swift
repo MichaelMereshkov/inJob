@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 public protocol SearchItemsViewModelProtocol: AnyObject {
     

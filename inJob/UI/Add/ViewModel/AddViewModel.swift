@@ -6,6 +6,14 @@
 //
 
 import Foundation
+import UIKit
+
+protocol AddViewModelProtocolDelegate: AnyObject {
+    
+    // MARK: - Functions
+    
+    func saveItems(image: UIImage?, title: String, value: String, location: String, sum: Int, textName: String, textPhone: String, textMail: String)
+}
 
 protocol AddViewModelProtocol: AnyObject {
     
@@ -37,7 +45,7 @@ final class AddViewModel: AddViewModelProtocol {
 
     init(router: SearchRouterProtocol) {
         self.router = router
-        var item = [TableCellViewModelProtocol]()
+        //var item = [TableCellViewModelProtocol]()
 //        item.append(AddItemsViewModel(title: "Название / категория", result: 10, keyboardType: .default))
 //        sections.append(SectionItemsViewModel(items: item))
     }

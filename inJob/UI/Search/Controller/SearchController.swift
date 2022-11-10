@@ -57,16 +57,18 @@ final class SearchController: UIViewController {
     }
 
     // MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupAppearance()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetch()
+        //viewModel.fetch()
+        viewModel.saveItems()
         tableView.reloadData()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //viewModel.saveItems()
+        setupAppearance()
     }
 
     // MARK: - Private functions
