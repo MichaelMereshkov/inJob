@@ -1,28 +1,28 @@
 //
-//  FavoritesViewModel.swift
+//  SettingsViewModel.swift
 //  inJob
 //
-//  Created by Михаил Мерешков on 05.11.2022.
+//  Created by Михаил Мерешков on 10.11.2022.
 //
 
 import Foundation
 
-protocol FavoritesViewModelProtocol: AnyObject {
+protocol SettingsViewModelProtocol: AnyObject {
     
     // MARK: - Properties
 
-    var items: [TableCellViewModelProtocol] { get }
+    var sections: [SectionViewModelProtocol] { get }
 }
 
-final class FavoritesViewModel: FavoritesViewModelProtocol {
+final class SettingsViewModel: SettingsViewModelProtocol {
 
     // MARK: - Constants
 
 
     // MARK: - Properties
 
-    var router: FavoritesRouterProtocol
-    var items: [TableCellViewModelProtocol] = []
+    var router: SettingsRouterProtocol
+    var sections: [SectionViewModelProtocol] = []
     
     // MARK: - Private properties
     
@@ -34,7 +34,7 @@ final class FavoritesViewModel: FavoritesViewModelProtocol {
 
     // MARK: - Constructor
 
-    init(router: FavoritesRouterProtocol) {
+    init(router: SettingsRouterProtocol) {
         self.router = router
     }
 
@@ -46,4 +46,3 @@ final class FavoritesViewModel: FavoritesViewModelProtocol {
     func didTapAddButton() {
     }
 }
-

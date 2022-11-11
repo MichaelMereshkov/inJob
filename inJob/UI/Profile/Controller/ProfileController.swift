@@ -156,6 +156,11 @@ final class ProfileController: UIViewController {
         view.addSubview(imageMark1)
         view.addSubview(imageMark2)
         
+        let gesture1 = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction1))
+        self.viewCell1.addGestureRecognizer(gesture1)
+        let gesture2 = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction2))
+        self.viewCell2.addGestureRecognizer(gesture2)
+        
         setupConstraints()
     }
 
@@ -228,5 +233,13 @@ final class ProfileController: UIViewController {
 
     @objc func didTapButton() {
         //viewModel.didTapAddButton()
+    }
+    
+    @objc func checkAction1(sender : UITapGestureRecognizer) {
+        print("r")
+    }
+    
+    @objc func checkAction2(sender : UITapGestureRecognizer) {
+        print("d")
     }
 }

@@ -11,6 +11,15 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
 
     // MARK: - Views
     
+    private lazy var viewScreen: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var iconImageView: UIImageView = {
         let iconImageView = UIImageView()
         iconImageView.image = UIImage(systemName: "heart.fill")
@@ -98,6 +107,7 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
         button.layer.cornerRadius = 21
         button.layer.masksToBounds = true
         button.setTitle("Откликнуться", for: .normal)
+        button.addTarget(self, action: #selector(didTapButtonRes), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         button.setTitleColor(.white, for: .normal)
@@ -172,10 +182,11 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     // MARK: - Private functions
 
     private func setupAppearance() {
-        backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
+        backgroundColor = .clear
         selectionStyle = .none
         layer.cornerRadius = 10
 
+        contentView.addSubview(viewScreen)
         contentView.addSubview(imageLog)
         contentView.addSubview(iconImage)
         iconImage.addSubview(iconImageView)
@@ -191,10 +202,15 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageLog.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            imageLog.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageLog.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageLog.heightAnchor.constraint(equalToConstant: 150),
+            viewScreen.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            viewScreen.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            viewScreen.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
+            viewScreen.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            imageLog.leftAnchor.constraint(equalTo: viewScreen.leftAnchor),
+            imageLog.rightAnchor.constraint(equalTo: viewScreen.rightAnchor),
+            imageLog.topAnchor.constraint(equalTo: viewScreen.topAnchor),
+            imageLog.heightAnchor.constraint(equalToConstant: 200),
             
             iconImage.rightAnchor.constraint(equalTo: imageLog.rightAnchor, constant: -10),
             iconImage.topAnchor.constraint(equalTo: imageLog.topAnchor, constant: 10),
@@ -204,8 +220,8 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
             iconImageView.widthAnchor.constraint(equalTo: iconImage.widthAnchor),
             iconImageView.heightAnchor.constraint(equalTo: iconImage.heightAnchor),
             
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            titleLabel.leftAnchor.constraint(equalTo: viewScreen.leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: viewScreen.rightAnchor, constant: -16),
             titleLabel.topAnchor.constraint(equalTo: imageLog.bottomAnchor, constant: 16),
 
             valueLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor),
@@ -221,11 +237,11 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
             sumLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
             
             buttonContacts.leftAnchor.constraint(equalTo: titleLabel.leftAnchor),
-            buttonContacts.rightAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -8),
+            buttonContacts.rightAnchor.constraint(equalTo: viewScreen.centerXAnchor, constant: -8),
             buttonContacts.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 10),
             buttonContacts.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
-            buttonResponses.leftAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 8),
+            buttonResponses.leftAnchor.constraint(equalTo: viewScreen.centerXAnchor, constant: 8),
             buttonResponses.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
             buttonResponses.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 10),
         ])
@@ -245,5 +261,11 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     @objc
     func didTapButton() {
         viewModel?.router?.openContacts(textName: viewModel?.textName ?? "", textPhone: viewModel?.textPhone ?? "", textMail: viewModel?.textMail ?? "")
+    }
+    
+    @objc
+    func didTapButtonRes() {
+        buttonResponses.setBackgroundColor(.black, for: .normal)
+        buttonResponses.setTitle("Вы откликнулись", for: .normal)
     }
 }

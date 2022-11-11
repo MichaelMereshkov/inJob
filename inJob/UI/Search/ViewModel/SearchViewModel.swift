@@ -13,7 +13,7 @@ protocol SearchViewModelProtocol: AnyObject {
     
     // MARK: - Properties
 
-    var sections: [SectionViewModelProtocol] { get }
+    var items: [TableCellViewModelProtocol] { get }
     
     // MARK: - Functions
 
@@ -29,8 +29,8 @@ final class SearchViewModel: SearchViewModelProtocol {
     // MARK: - Properties
 
     var router: SearchRouterProtocol
-    var sections: [SectionViewModelProtocol] = []
-    var items: [Items] = []
+    var items: [TableCellViewModelProtocol] = []
+    var coreData: [Items] = []
     
     // MARK: - Private properties
     
@@ -57,19 +57,25 @@ final class SearchViewModel: SearchViewModelProtocol {
 
     // MARK: - Functions
     
+    func saveItems(image: UIImage, title: String, value: String, location: String, sum: Int, textName: String, textPhone: String, textMail: String) {
+        
+    }
+    
     func saveItems() {
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest: NSFetchRequest<Items> = Items.fetchRequest()
         
         do {
-            items = try context.fetch(fetchRequest)
-
-            let item = items.compactMap { SearchItemsViewModel(image: UIImage(data: $0.image!)!, title: $0.title ?? "", value: $0.value ?? "" , location: $0.location ?? "", sum: Int($0.sum), textName: $0.textName ?? "", textPhone: $0.textPhone ?? "", textMail: $0.textMail ?? "", router: router) }
+            coreData = try context.fetch(fetchRequest)
+            self.items.removeAll()
+            var item = coreData.compactMap { SearchItemsViewModel(image: UIImage(data: $0.image!)!, title: $0.title ?? "", value: $0.value ?? "" , location: $0.location ?? "", sum: Int($0.sum), textName: $0.textName ?? "", textPhone: $0.textPhone ?? "", textMail: $0.textMail ?? "", router: router) }
 
             //sections.insert(SectionItemsViewModel(items: item), at: 0)
-            sections.append(SectionItemsViewModel(items: item))
+            item.reverse()
+            self.items.insert(contentsOf: item, at: 0)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -79,7 +85,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     }
 
     func fetch() {
-        sections.append(SectionItemsViewModel(items: allItems))
+        items.append(contentsOf: allItems)
     }
 
     // MARK: - Private functions

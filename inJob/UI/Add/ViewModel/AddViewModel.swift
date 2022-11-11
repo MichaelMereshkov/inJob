@@ -8,19 +8,13 @@
 import Foundation
 import UIKit
 
-protocol AddViewModelProtocolDelegate: AnyObject {
-    
-    // MARK: - Functions
-    
-    func saveItems(image: UIImage?, title: String, value: String, location: String, sum: Int, textName: String, textPhone: String, textMail: String)
-}
-
 protocol AddViewModelProtocol: AnyObject {
     
     // MARK: - Properties
-
-    var router: SearchRouterProtocol { get }
-    var sections: [SectionViewModelProtocol] { get }
+    
+    // MARK: - Functions
+    
+    func didTapAddButton()
 }
 
 final class AddViewModel: AddViewModelProtocol {
@@ -30,12 +24,9 @@ final class AddViewModel: AddViewModelProtocol {
 
     // MARK: - Properties
 
-    var router: SearchRouterProtocol
-    var sections: [SectionViewModelProtocol] = []
+    var router: AddRouterProtocol
     
     // MARK: - Private properties
-    
-    private var title: String?
 
     // MARK: - Private properties
 
@@ -43,11 +34,8 @@ final class AddViewModel: AddViewModelProtocol {
 
     // MARK: - Constructor
 
-    init(router: SearchRouterProtocol) {
+    init(router: AddRouterProtocol) {
         self.router = router
-        //var item = [TableCellViewModelProtocol]()
-//        item.append(AddItemsViewModel(title: "Название / категория", result: 10, keyboardType: .default))
-//        sections.append(SectionItemsViewModel(items: item))
     }
 
     // MARK: - Functions
@@ -56,6 +44,7 @@ final class AddViewModel: AddViewModelProtocol {
     // MARK: - Private functions
     
     func didTapAddButton() {
+        router.goToMainScreen()
     }
 }
 

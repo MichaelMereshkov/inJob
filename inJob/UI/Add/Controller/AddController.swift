@@ -78,7 +78,7 @@ final class AddController: UIViewController {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.delegate = self
+        //textField.delegate = self
         textField.font = .systemFont(ofSize: 18, weight: .regular)
         textField.addTarget(self, action: #selector(textFieldAllEvents), for: .allEvents)
         //textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
@@ -114,7 +114,7 @@ final class AddController: UIViewController {
     
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        textView.delegate = self
+        //textView.delegate = self
         textView.font = .systemFont(ofSize: 18, weight: .regular)
         //textView.add addTarget(self, action: #selector(textViewAllEvents), for: .allEvents)
         //textField.addTarget(self, action: #selector(textViewEditingChanged), for: .editingChanged)
@@ -149,7 +149,7 @@ final class AddController: UIViewController {
     
     private lazy var locationField: UITextField = {
         let textField = UITextField()
-        textField.delegate = self
+        //textField.delegate = self
         textField.font = .systemFont(ofSize: 18, weight: .regular)
         textField.addTarget(self, action: #selector(locationFieldAllEvents), for: .allEvents)
         //textField.addTarget(self, action: #selector(locationFieldEditingChanged), for: .editingChanged)
@@ -184,7 +184,7 @@ final class AddController: UIViewController {
     
     private lazy var sumField: UITextField = {
         let textField = UITextField()
-        textField.delegate = self
+        //textField.delegate = self
         textField.font = .systemFont(ofSize: 18, weight: .regular)
         textField.addTarget(self, action: #selector(sumFieldAllEvents), for: .allEvents)
         //textField.addTarget(self, action: #selector(sumFieldEditingChanged), for: .editingChanged)
@@ -461,9 +461,6 @@ final class AddController: UIViewController {
 
     @objc
     private func backBarButtonDidTap() {
-//        allItems.removeAll()
-//        allItems = [SearchItemsViewModel(image: imageLog.image!, title: textField.text ?? "", value: textView.text, location: locationField.text ?? "", sum: Int(sumField.text ?? "") ?? 0, textName: textName, textPhone: textPhone, textMail: textMail, router: viewModel.router)]
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -482,7 +479,6 @@ final class AddController: UIViewController {
         
         do {
             try context.save()
-            //items.append(taskObject)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -491,6 +487,11 @@ final class AddController: UIViewController {
         textView.text = ""
         locationField.text = ""
         sumField.text = ""
+        
+        button.backgroundColor = .gray
+        button.isEnabled = false
+        
+        viewModel.didTapAddButton()
     }
 
     @objc
@@ -518,24 +519,24 @@ extension AddController: UIImagePickerControllerDelegate, UINavigationController
 
 // MARK: - UITextFieldDelegate
 
-extension AddController: UITextFieldDelegate {
-
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        let currentCharacterCount = textField.text?.count ?? 0
+//extension AddController: UITextFieldDelegate {
 //
-//        if range.length + range.location > currentCharacterCount {
-//            return false
-//        }
+////    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+////        let currentCharacterCount = textField.text?.count ?? 0
+////
+////        if range.length + range.location > currentCharacterCount {
+////            return false
+////        }
+////
+////        let newLength = currentCharacterCount + string.count - range.length
+////
+////        return newLength <= 9
+////    }
+//}
 //
-//        let newLength = currentCharacterCount + string.count - range.length
 //
-//        return newLength <= 9
-//    }
-}
-
-
-// MARK: - UITextFieldDelegate
-
-extension AddController: UITextViewDelegate {
-
-}
+//// MARK: - UITextFieldDelegate
+//
+//extension AddController: UITextViewDelegate {
+//
+//}
