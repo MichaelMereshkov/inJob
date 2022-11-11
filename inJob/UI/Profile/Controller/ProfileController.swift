@@ -46,7 +46,7 @@ final class ProfileController: UIViewController {
         return label
     }()
     
-    private lazy var viewCell1: UIView = {
+    private lazy var viewAboutUs: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
         view.layer.cornerRadius = 10
@@ -54,7 +54,7 @@ final class ProfileController: UIViewController {
         return view
     }()
     
-    private lazy var viewCell2: UIView = {
+    private lazy var viewMyAdd: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
         view.layer.cornerRadius = 10
@@ -147,8 +147,8 @@ final class ProfileController: UIViewController {
         view.addSubview(imageLog)
         view.addSubview(titleLabel)
         view.addSubview(valueLabel)
-        view.addSubview(viewCell1)
-        view.addSubview(viewCell2)
+        view.addSubview(viewAboutUs)
+        view.addSubview(viewMyAdd)
         view.addSubview(imageLog1)
         view.addSubview(imageLog2)
         view.addSubview(titleCell1Label)
@@ -156,10 +156,10 @@ final class ProfileController: UIViewController {
         view.addSubview(imageMark1)
         view.addSubview(imageMark2)
         
-        let gesture1 = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction1))
-        self.viewCell1.addGestureRecognizer(gesture1)
-        let gesture2 = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction2))
-        self.viewCell2.addGestureRecognizer(gesture2)
+        let gestureAboutUs = UITapGestureRecognizer(target: self, action:  #selector(self.checkActionAboutUs))
+        self.viewAboutUs.addGestureRecognizer(gestureAboutUs)
+        let gestureMyAdd = UITapGestureRecognizer(target: self, action:  #selector(self.checkActionMyAdd))
+        self.viewMyAdd.addGestureRecognizer(gestureMyAdd)
         
         setupConstraints()
     }
@@ -184,23 +184,23 @@ final class ProfileController: UIViewController {
             valueLabel.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
             valueLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             
-            viewCell1.leftAnchor.constraint(equalTo: viewProfile.leftAnchor),
-            viewCell1.rightAnchor.constraint(equalTo: viewProfile.rightAnchor),
-            viewCell1.topAnchor.constraint(equalTo: viewProfile.bottomAnchor, constant: 16),
+            viewAboutUs.leftAnchor.constraint(equalTo: viewProfile.leftAnchor),
+            viewAboutUs.rightAnchor.constraint(equalTo: viewProfile.rightAnchor),
+            viewAboutUs.topAnchor.constraint(equalTo: viewProfile.bottomAnchor, constant: 24),
             
-            viewCell2.leftAnchor.constraint(equalTo: viewProfile.leftAnchor),
-            viewCell2.rightAnchor.constraint(equalTo: viewProfile.rightAnchor),
-            viewCell2.topAnchor.constraint(equalTo: viewCell1.bottomAnchor, constant: 8),
+            viewMyAdd.leftAnchor.constraint(equalTo: viewProfile.leftAnchor),
+            viewMyAdd.rightAnchor.constraint(equalTo: viewProfile.rightAnchor),
+            viewMyAdd.topAnchor.constraint(equalTo: viewAboutUs.bottomAnchor, constant: 10),
             
-            imageLog1.leftAnchor.constraint(equalTo: viewCell1.leftAnchor, constant: 10),
-            imageLog1.topAnchor.constraint(equalTo: viewCell1.topAnchor, constant: 10),
-            imageLog1.bottomAnchor.constraint(equalTo: viewCell1.bottomAnchor, constant: -10),
+            imageLog1.leftAnchor.constraint(equalTo: viewAboutUs.leftAnchor, constant: 14),
+            imageLog1.topAnchor.constraint(equalTo: viewAboutUs.topAnchor, constant: 14),
+            imageLog1.bottomAnchor.constraint(equalTo: viewAboutUs.bottomAnchor, constant: -14),
             imageLog1.heightAnchor.constraint(equalToConstant: 24),
             imageLog1.widthAnchor.constraint(equalTo: imageLog1.heightAnchor),
             
-            imageLog2.leftAnchor.constraint(equalTo: viewCell2.leftAnchor, constant: 10),
-            imageLog2.topAnchor.constraint(equalTo: viewCell2.topAnchor, constant: 10),
-            imageLog2.bottomAnchor.constraint(equalTo: viewCell2.bottomAnchor, constant: -10),
+            imageLog2.leftAnchor.constraint(equalTo: viewMyAdd.leftAnchor, constant: 14),
+            imageLog2.topAnchor.constraint(equalTo: viewMyAdd.topAnchor, constant: 14),
+            imageLog2.bottomAnchor.constraint(equalTo: viewMyAdd.bottomAnchor, constant: -14),
             imageLog2.heightAnchor.constraint(equalToConstant: 24),
             imageLog2.widthAnchor.constraint(equalTo: imageLog2.heightAnchor),
             
@@ -212,15 +212,15 @@ final class ProfileController: UIViewController {
             titleCell2Label.rightAnchor.constraint(equalTo: imageMark2.leftAnchor, constant: -4),
             titleCell2Label.centerYAnchor.constraint(equalTo: imageLog2.centerYAnchor),
             
-            imageMark1.rightAnchor.constraint(equalTo: viewCell1.rightAnchor, constant: -8),
-            imageMark1.centerYAnchor.constraint(equalTo: viewCell1.centerYAnchor),
-            imageMark1.heightAnchor.constraint(equalToConstant: 16),
-            imageMark1.widthAnchor.constraint(equalToConstant: 7),
+            imageMark1.rightAnchor.constraint(equalTo: viewAboutUs.rightAnchor, constant: -10),
+            imageMark1.centerYAnchor.constraint(equalTo: viewAboutUs.centerYAnchor),
+            imageMark1.heightAnchor.constraint(equalToConstant: 20),
+            imageMark1.widthAnchor.constraint(equalToConstant: 10),
             
-            imageMark2.rightAnchor.constraint(equalTo: viewCell2.rightAnchor, constant: -8),
-            imageMark2.centerYAnchor.constraint(equalTo: viewCell2.centerYAnchor),
-            imageMark2.heightAnchor.constraint(equalToConstant: 16),
-            imageMark2.widthAnchor.constraint(equalToConstant: 7),
+            imageMark2.rightAnchor.constraint(equalTo: viewMyAdd.rightAnchor, constant: -10),
+            imageMark2.centerYAnchor.constraint(equalTo: viewMyAdd.centerYAnchor),
+            imageMark2.heightAnchor.constraint(equalToConstant: 20),
+            imageMark2.widthAnchor.constraint(equalToConstant: 10),
         ])
     }
 
@@ -235,11 +235,11 @@ final class ProfileController: UIViewController {
         //viewModel.didTapAddButton()
     }
     
-    @objc func checkAction1(sender : UITapGestureRecognizer) {
+    @objc func checkActionAboutUs(sender : UITapGestureRecognizer) {
         print("r")
     }
     
-    @objc func checkAction2(sender : UITapGestureRecognizer) {
-        print("d")
+    @objc func checkActionMyAdd(sender : UITapGestureRecognizer) {
+        viewModel.didTapAddButton()
     }
 }

@@ -12,8 +12,8 @@ final class MyAddController: UIViewController {
     // MARK: - Views
 
     private lazy var backBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: self, action: #selector(backBarButtonDidTap))
-        barButton.imageInsets = UIEdgeInsets(top: 0, left: -13.0, bottom: 0, right: 13.0)
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backBarButtonDidTap))
+        barButton.tintColor = .darkGray
         return barButton
     }()
 
@@ -26,7 +26,7 @@ final class MyAddController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.register(SearchViewCell.self)
 
         return tableView
     }()
@@ -47,6 +47,12 @@ final class MyAddController: UIViewController {
     }
 
     // MARK: - LifeCycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.saveItems()
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +63,10 @@ final class MyAddController: UIViewController {
 
     private func setupAppearance() {
         view.backgroundColor = .white
+        navigationItem.title = "Мои объявления"
+        navigationItem.leftBarButtonItem = backBarButton
+        navigationItem.leftBarButtonItem?.title = ""
+        navigationItem.leftBarButtonItem?.tintColor = .darkText
 
         view.addSubview(tableView)
         
@@ -76,7 +86,8 @@ final class MyAddController: UIViewController {
 
     @objc
     private func backBarButtonDidTap() {
-        //viewModel.dismiss()
+        //viewModel.didTapAddButton()
+        navigationController?.popViewController(animated: true)
     }
 
     @objc func didTapButton() {
@@ -84,40 +95,26 @@ final class MyAddController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource & UITableViewDelegate
 
-// MARK: - UITableViewDataSource
+extension MyAddController: UITableViewDataSource, UITableViewDelegate {
 
-extension MyAddController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.items.count
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.sections[indexPath.section].items[indexPath.row]
+        guard let item = viewModel.items.element(at: indexPath.section) else { return UITableViewCell() }
+
         let cell = tableView.dequeueReusableCell(withIdentifier: item.cellId, for: indexPath)
         if let cell = cell as? TableCellConfigurable {
             cell.setup(viewModel: item)
         }
+
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.sections.element(at: section)?.items.count ?? 0
+        return 1
     }
 }
-
-// MARK: - UITableViewDelegate
-
-//extension MyAddController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        //viewModel.didSelectItem(at: indexPath)
-//    }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 12
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return viewModel.sections.count
-//    }
-//}

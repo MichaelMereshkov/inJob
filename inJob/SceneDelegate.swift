@@ -24,11 +24,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileVC = ProfileBuilder.build()
         
         /// NavigationController
+        let navSearchVC = UINavigationController(rootViewController: searchVC)
         let navAddVC = UINavigationController(rootViewController: addVC)
         let navProfileVC = UINavigationController(rootViewController: profileVC)
         
         let tabBarVC = UITabBarController()
-        tabBarVC.setViewControllers([searchVC, favoritesVC, navAddVC, responsesVC, navProfileVC], animated: true)
+        tabBarVC.setViewControllers([navSearchVC, favoritesVC, navAddVC, responsesVC, navProfileVC], animated: true)
+        tabBarVC.tabBar.tintColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
         window.rootViewController = tabBarVC
         window.makeKeyAndVisible()
         self.window = window

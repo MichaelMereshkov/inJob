@@ -39,7 +39,7 @@ final class AddController: UIViewController {
     
     private lazy var buttonPhoto: UIButton = {
         let button: UIButton = UIButton()
-        button.backgroundColor = .gray
+        button.backgroundColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
         button.layer.cornerRadius = 10
         button.setTitle("  Добавить фото", for: .normal)
         button.layer.masksToBounds = true
@@ -60,9 +60,9 @@ final class AddController: UIViewController {
     private lazy var viewCategory: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        view.layer.borderColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1).cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -70,7 +70,7 @@ final class AddController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
         label.text = "Название / категория"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -78,10 +78,9 @@ final class AddController: UIViewController {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        //textField.delegate = self
+        textField.placeholder = "Введите название"
         textField.font = .systemFont(ofSize: 18, weight: .regular)
         textField.addTarget(self, action: #selector(textFieldAllEvents), for: .allEvents)
-        //textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         textField.textAlignment = .left
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 10
@@ -98,7 +97,7 @@ final class AddController: UIViewController {
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        view.layer.borderColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1).cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -106,7 +105,7 @@ final class AddController: UIViewController {
     private lazy var descriptionLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
         label.text = "Описание"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -114,13 +113,10 @@ final class AddController: UIViewController {
     
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        //textView.delegate = self
         textView.font = .systemFont(ofSize: 18, weight: .regular)
-        //textView.add addTarget(self, action: #selector(textViewAllEvents), for: .allEvents)
-        //textField.addTarget(self, action: #selector(textViewEditingChanged), for: .editingChanged)
         textView.textAlignment = .left
         textView.backgroundColor = .white
-        textView.layer.cornerRadius = 10
+        textView.layer.cornerRadius = 8
         textView.keyboardType = .default
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -131,9 +127,9 @@ final class AddController: UIViewController {
     private lazy var viewLocation: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        view.layer.borderColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1).cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -141,7 +137,7 @@ final class AddController: UIViewController {
     private lazy var locationLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
         label.text = "Локация"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -149,26 +145,33 @@ final class AddController: UIViewController {
     
     private lazy var locationField: UITextField = {
         let textField = UITextField()
-        //textField.delegate = self
+        textField.inputView = pickerView
         textField.font = .systemFont(ofSize: 18, weight: .regular)
         textField.addTarget(self, action: #selector(locationFieldAllEvents), for: .allEvents)
-        //textField.addTarget(self, action: #selector(locationFieldEditingChanged), for: .editingChanged)
         textField.textAlignment = .left
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 10
+        textField.placeholder = "Выберите локацию"
         textField.keyboardType = .default
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    // MARK: - Views 3
+    private lazy var pickerView: UIPickerView = {
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.dataSource = self
+        return picker
+    }()
+    
+    // MARK: - Views 4
     
     private lazy var viewSum: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        view.layer.borderColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1).cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -176,7 +179,7 @@ final class AddController: UIViewController {
     private lazy var sumLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
+        label.textColor = .gray
         label.text = "Оплата"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -187,7 +190,7 @@ final class AddController: UIViewController {
         //textField.delegate = self
         textField.font = .systemFont(ofSize: 18, weight: .regular)
         textField.addTarget(self, action: #selector(sumFieldAllEvents), for: .allEvents)
-        //textField.addTarget(self, action: #selector(sumFieldEditingChanged), for: .editingChanged)
+        textField.placeholder = "Введите сумму оплыты"
         textField.textAlignment = .left
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 10
@@ -391,7 +394,7 @@ final class AddController: UIViewController {
     
     private func setupButton() {
         if textField.text != "", textView.text != "", locationField.text != "", sumField.text != "" {
-            button.backgroundColor = .black
+            button.backgroundColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
             button.isEnabled = true
         } else {
             button.backgroundColor = .gray
@@ -517,26 +520,24 @@ extension AddController: UIImagePickerControllerDelegate, UINavigationController
     }
 }
 
-// MARK: - UITextFieldDelegate
+// MARK: - UIPickerViewDelegate & UIPickerViewDataSource
 
-//extension AddController: UITextFieldDelegate {
-//
-////    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-////        let currentCharacterCount = textField.text?.count ?? 0
-////
-////        if range.length + range.location > currentCharacterCount {
-////            return false
-////        }
-////
-////        let newLength = currentCharacterCount + string.count - range.length
-////
-////        return newLength <= 9
-////    }
-//}
-//
-//
-//// MARK: - UITextFieldDelegate
-//
-//extension AddController: UITextViewDelegate {
-//
-//}
+extension AddController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        viewModel.location.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        viewModel.location[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        locationField.text = viewModel.location[row]
+        locationField.resignFirstResponder()
+    }
+
+}

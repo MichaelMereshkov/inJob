@@ -9,6 +9,9 @@ import UIKit
 
 protocol MyAddRouterProtocol: AnyObject {
     
+    // MARK: - Functions
+    
+    func dismiss()
 }
 
 final class MyAddRouter: MyAddRouterProtocol {
@@ -19,4 +22,7 @@ final class MyAddRouter: MyAddRouterProtocol {
 
     // MARK: - Functions
     
+    func dismiss() {
+        presenter?.navigationController?.popViewController(animated: true)
+    }
 }

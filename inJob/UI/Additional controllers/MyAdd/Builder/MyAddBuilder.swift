@@ -12,7 +12,7 @@ final class MyAddBuilder {
     // MARK: - Functions
 
     static func build() -> UIViewController {
-        let router = MyAddRouter()
+        let router = SearchRouter()
         let viewModel = MyAddViewModel(router: router)
         let controller = MyAddController(viewModel: viewModel)
         router.presenter = controller

@@ -12,6 +12,8 @@ protocol AddViewModelProtocol: AnyObject {
     
     // MARK: - Properties
     
+    var location: [String] { get }
+    
     // MARK: - Functions
     
     func didTapAddButton()
@@ -25,6 +27,7 @@ final class AddViewModel: AddViewModelProtocol {
     // MARK: - Properties
 
     var router: AddRouterProtocol
+    var location = ["Али-Юрт","Алхасты", "Армхи", "Ачалуки", "Барсуки", "Вр. Ачалуки", "Гази юрт", "Галашки", "Джейрах", "Долаково", "Зязиков юрт", "Кантышево", "Карабулак", "Магас", "Майское", "Малгобек", "Мужичи", "Назрань", "Нестеровская", "Плиево", "Сагопши", "Слепцовск", "Ср. Ачалуки", "Сунжа", "Сурхахи", "Троицкая", "Чермен", "Экажево", "Яндаре",]
     
     // MARK: - Private properties
 

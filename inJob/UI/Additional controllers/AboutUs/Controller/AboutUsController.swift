@@ -1,5 +1,5 @@
 //
-//  SettingsController.swift
+//  AboutUsController.swift
 //  inJob
 //
 //  Created by Михаил Мерешков on 10.11.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SettingsController: UIViewController {
+final class AboutUsController: UIViewController {
 
     // MARK: - Views
 
@@ -20,17 +20,17 @@ final class SettingsController: UIViewController {
 
     // MARK: - Private properties
 
-    private let viewModel: SettingsViewModelProtocol
+    private let viewModel: AboutUsViewModelProtocol
 
     // MARK: - Initialization
 
-    init(viewModel: SettingsViewModelProtocol) {
+    init(viewModel: AboutUsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
-        fatalError("SettingsController ::: init(coder:) has not been implemented")
+        fatalError("AboutUsController ::: init(coder:) has not been implemented")
     }
 
     // MARK: - LifeCycle

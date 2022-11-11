@@ -10,13 +10,15 @@ import UIKit
 final class SearchController: UIViewController {
 
     // MARK: - Views
-
-    private lazy var imageLog: UIImageView = {
-        let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "log_search")
-        image.contentMode = .scaleAspectFill
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+    
+    private lazy var searchController: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        search.resignFirstResponder()
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = "Введите название или категорию"
+        
+        return search
     }()
 
     private lazy var tableView: UITableView = {
@@ -36,13 +38,23 @@ final class SearchController: UIViewController {
     // MARK: - Private properties
 
     private let viewModel: SearchViewModelProtocol
+    
+    private var searchIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    
+    private var isFiltering: Bool {
+        return searchController.isActive && !searchIsEmpty
+    }
 
     // MARK: - Initialization
 
     init(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.title = "Поиск"
+        self.title = "inJob"
+        self.tabBarItem.title = "Поиск"
         self.tabBarItem.image = UIImage(systemName: "magnifyingglass")
     }
 
@@ -68,29 +80,33 @@ final class SearchController: UIViewController {
     // MARK: - Private functions
 
     private func setupAppearance() {
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         view.backgroundColor = .white
 
-        view.addSubview(imageLog)
         view.addSubview(tableView)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
         setupConstraints()
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageLog.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageLog.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageLog.widthAnchor.constraint(equalToConstant: 70),
-            imageLog.heightAnchor.constraint(equalToConstant: 30),
-            
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: imageLog.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 
     // MARK: - Actions
+    
+    @objc
+    func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        searchController.resignFirstResponder()
+        }
 
     @objc
     private func backBarButtonDidTap() {
@@ -102,7 +118,6 @@ final class SearchController: UIViewController {
     }
 }
 
-
 // MARK: - UITableViewDataSource & UITableViewDelegate
 
 extension SearchController: UITableViewDataSource, UITableViewDelegate {
@@ -110,11 +125,21 @@ extension SearchController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.items.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let item = viewModel.items.element(at: indexPath.section) else { return UITableViewCell() }
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: item.cellId, for: indexPath)
+        var item: TableCellViewModelProtocol
+        var cell: UITableViewCell
+        
+        if isFiltering {
+            guard let itemSearch = viewModel.searchItems.element(at: indexPath.section) else { return UITableViewCell() }
+            item = itemSearch
+            cell = tableView.dequeueReusableCell(withIdentifier: itemSearch.cellId, for: indexPath)
+        } else {
+            guard let itemSearch = viewModel.items.element(at: indexPath.section) else { return UITableViewCell() }
+            item = itemSearch
+            cell = tableView.dequeueReusableCell(withIdentifier: itemSearch.cellId, for: indexPath)
+            }
+        
         if let cell = cell as? TableCellConfigurable {
             cell.setup(viewModel: item)
         }
@@ -123,8 +148,23 @@ extension SearchController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return viewModel.searchItems.count
+        }
         return 1
     }
+}
+
+// MARK: - UISearchResultsUpdating
+
+extension SearchController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.filterContentForSearchText(searchController.searchBar.text!)
+        tableView.reloadData()
+    }
+    
+    
 }
 
 

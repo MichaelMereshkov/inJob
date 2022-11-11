@@ -53,10 +53,10 @@
 		D46AC171291810CF00CBC039 /* AddItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46AC170291810CF00CBC039 /* AddItemsViewModel.swift */; };
 		D46AC173291812CC00CBC039 /* AddViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46AC172291812CC00CBC039 /* AddViewCell.swift */; };
 		D4DA22E1291D56EF0058B0F5 /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22E0291D56EF0058B0F5 /* CoreDataHandler.swift */; };
-		D4DA22ED291D67560058B0F5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22EC291D67560058B0F5 /* SettingsViewModel.swift */; };
-		D4DA22EF291D67630058B0F5 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22EE291D67630058B0F5 /* SettingsRouter.swift */; };
-		D4DA22F1291D676E0058B0F5 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F0291D676E0058B0F5 /* SettingsController.swift */; };
-		D4DA22F3291D67770058B0F5 /* SettingsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F2291D67770058B0F5 /* SettingsBuilder.swift */; };
+		D4DA22ED291D67560058B0F5 /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22EC291D67560058B0F5 /* AboutUsViewModel.swift */; };
+		D4DA22EF291D67630058B0F5 /* AboutUsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22EE291D67630058B0F5 /* AboutUsRouter.swift */; };
+		D4DA22F1291D676E0058B0F5 /* AboutUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F0291D676E0058B0F5 /* AboutUsController.swift */; };
+		D4DA22F3291D67770058B0F5 /* AboutUsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F2291D67770058B0F5 /* AboutUsBuilder.swift */; };
 		D4DA22F5291D67B20058B0F5 /* MyAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F4291D67B20058B0F5 /* MyAddViewModel.swift */; };
 		D4DA22F7291D67BD0058B0F5 /* MyAddRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F6291D67BD0058B0F5 /* MyAddRouter.swift */; };
 		D4DA22F9291D67D60058B0F5 /* MyAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DA22F8291D67D60058B0F5 /* MyAddController.swift */; };
@@ -131,10 +131,10 @@
 		D46AC170291810CF00CBC039 /* AddItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsViewModel.swift; sourceTree = "<group>"; };
 		D46AC172291812CC00CBC039 /* AddViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewCell.swift; sourceTree = "<group>"; };
 		D4DA22E0291D56EF0058B0F5 /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
-		D4DA22EC291D67560058B0F5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		D4DA22EE291D67630058B0F5 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
-		D4DA22F0291D676E0058B0F5 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
-		D4DA22F2291D67770058B0F5 /* SettingsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBuilder.swift; sourceTree = "<group>"; };
+		D4DA22EC291D67560058B0F5 /* AboutUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewModel.swift; sourceTree = "<group>"; };
+		D4DA22EE291D67630058B0F5 /* AboutUsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsRouter.swift; sourceTree = "<group>"; };
+		D4DA22F0291D676E0058B0F5 /* AboutUsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsController.swift; sourceTree = "<group>"; };
+		D4DA22F2291D67770058B0F5 /* AboutUsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsBuilder.swift; sourceTree = "<group>"; };
 		D4DA22F4291D67B20058B0F5 /* MyAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddViewModel.swift; sourceTree = "<group>"; };
 		D4DA22F6291D67BD0058B0F5 /* MyAddRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddRouter.swift; sourceTree = "<group>"; };
 		D4DA22F8291D67D60058B0F5 /* MyAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddController.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 		D4280899291AA5EA0083E826 /* Additional controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D4DA22E3291D66DC0058B0F5 /* Settings */,
+				D4DA22E3291D66DC0058B0F5 /* AboutUs */,
 				D4DA22E2291D66B90058B0F5 /* MyAdd */,
 				D428089E291AA6D30083E826 /* Contacts */,
 			);
@@ -579,7 +579,7 @@
 			path = MyAdd;
 			sourceTree = "<group>";
 		};
-		D4DA22E3291D66DC0058B0F5 /* Settings */ = {
+		D4DA22E3291D66DC0058B0F5 /* AboutUs */ = {
 			isa = PBXGroup;
 			children = (
 				D4DA22E7291D67160058B0F5 /* Builder */,
@@ -587,13 +587,13 @@
 				D4DA22E5291D66FD0058B0F5 /* Router */,
 				D4DA22E4291D66F40058B0F5 /* ViewModel */,
 			);
-			path = Settings;
+			path = AboutUs;
 			sourceTree = "<group>";
 		};
 		D4DA22E4291D66F40058B0F5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D4DA22EC291D67560058B0F5 /* SettingsViewModel.swift */,
+				D4DA22EC291D67560058B0F5 /* AboutUsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -601,7 +601,7 @@
 		D4DA22E5291D66FD0058B0F5 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				D4DA22EE291D67630058B0F5 /* SettingsRouter.swift */,
+				D4DA22EE291D67630058B0F5 /* AboutUsRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -609,7 +609,7 @@
 		D4DA22E6291D670C0058B0F5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D4DA22F0291D676E0058B0F5 /* SettingsController.swift */,
+				D4DA22F0291D676E0058B0F5 /* AboutUsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -617,7 +617,7 @@
 		D4DA22E7291D67160058B0F5 /* Builder */ = {
 			isa = PBXGroup;
 			children = (
-				D4DA22F2291D67770058B0F5 /* SettingsBuilder.swift */,
+				D4DA22F2291D67770058B0F5 /* AboutUsBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -798,10 +798,10 @@
 				D46AC0D729169C1800CBC039 /* AppDelegate.swift in Sources */,
 				D46AC1542916C89100CBC039 /* ResponsesController.swift in Sources */,
 				D42808A0291AA73D0083E826 /* ContactsViewModel.swift in Sources */,
-				D4DA22F3291D67770058B0F5 /* SettingsBuilder.swift in Sources */,
+				D4DA22F3291D67770058B0F5 /* AboutUsBuilder.swift in Sources */,
 				D46AC0D929169C1800CBC039 /* SceneDelegate.swift in Sources */,
 				D46AC1232916BEC200CBC039 /* GlobalVariable.swift in Sources */,
-				D4DA22F1291D676E0058B0F5 /* SettingsController.swift in Sources */,
+				D4DA22F1291D676E0058B0F5 /* AboutUsController.swift in Sources */,
 				D42808A2291AA7C50083E826 /* ContactsRouter.swift in Sources */,
 				D46AC1562916C89B00CBC039 /* ResponsesBuilder.swift in Sources */,
 				D46AC1402916C7F300CBC039 /* FavoritesRouter.swift in Sources */,
@@ -810,7 +810,7 @@
 				D4DA22F7291D67BD0058B0F5 /* MyAddRouter.swift in Sources */,
 				D42808A4291AA7E10083E826 /* ContactsController.swift in Sources */,
 				D46AC1442916C81400CBC039 /* FavoritesBuilder.swift in Sources */,
-				D4DA22EF291D67630058B0F5 /* SettingsRouter.swift in Sources */,
+				D4DA22EF291D67630058B0F5 /* AboutUsRouter.swift in Sources */,
 				D4DA22F5291D67B20058B0F5 /* MyAddViewModel.swift in Sources */,
 				D46AC15C2916C8C300CBC039 /* ProfileController.swift in Sources */,
 				D46AC15A2916C8B700CBC039 /* ProfileRouter.swift in Sources */,
@@ -832,7 +832,7 @@
 				D46AC14E2916C86300CBC039 /* AddBuilder.swift in Sources */,
 				D46AC15E2916C8CD00CBC039 /* ProfileBuilder.swift in Sources */,
 				D46AC1682916F90600CBC039 /* UITableView+Extension.swift in Sources */,
-				D4DA22ED291D67560058B0F5 /* SettingsViewModel.swift in Sources */,
+				D4DA22ED291D67560058B0F5 /* AboutUsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

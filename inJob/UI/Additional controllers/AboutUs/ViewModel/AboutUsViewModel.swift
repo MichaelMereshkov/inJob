@@ -1,5 +1,5 @@
 //
-//  SettingsViewModel.swift
+//  AboutUsViewModel.swift
 //  inJob
 //
 //  Created by Михаил Мерешков on 10.11.2022.
@@ -7,21 +7,21 @@
 
 import Foundation
 
-protocol SettingsViewModelProtocol: AnyObject {
+protocol AboutUsViewModelProtocol: AnyObject {
     
     // MARK: - Properties
 
     var sections: [SectionViewModelProtocol] { get }
 }
 
-final class SettingsViewModel: SettingsViewModelProtocol {
+final class AboutUsViewModel: AboutUsViewModelProtocol {
 
     // MARK: - Constants
 
 
     // MARK: - Properties
 
-    var router: SettingsRouterProtocol
+    var router: AboutUsRouterProtocol
     var sections: [SectionViewModelProtocol] = []
     
     // MARK: - Private properties
@@ -34,7 +34,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
 
     // MARK: - Constructor
 
-    init(router: SettingsRouterProtocol) {
+    init(router: AboutUsRouterProtocol) {
         self.router = router
     }
 

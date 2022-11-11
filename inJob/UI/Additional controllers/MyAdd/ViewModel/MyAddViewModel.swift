@@ -6,43 +6,63 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 protocol MyAddViewModelProtocol: AnyObject {
     
     // MARK: - Properties
 
-    var sections: [SectionViewModelProtocol] { get }
+    var items: [TableCellViewModelProtocol] { get }
+    
+    // MARK: - Functions
+    
+    func saveItems()
+    func didTapAddButton()
 }
 
 final class MyAddViewModel: MyAddViewModelProtocol {
 
-    // MARK: - Constants
-
-
     // MARK: - Properties
 
-    var router: MyAddRouterProtocol
-    var sections: [SectionViewModelProtocol] = []
+    var router: SearchRouterProtocol
+    var items: [TableCellViewModelProtocol] = []
     
     // MARK: - Private properties
     
-    private var title: String?
-
-    // MARK: - Private properties
-
-    
+    private var coreData: [Items] = []
 
     // MARK: - Constructor
 
-    init(router: MyAddRouterProtocol) {
+    init(router: SearchRouterProtocol) {
         self.router = router
     }
 
     // MARK: - Functions
 
+    func saveItems() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<Items> = Items.fetchRequest()
+        
+        do {
+            coreData = try context.fetch(fetchRequest)
+            self.items.removeAll()
+            //fetch()
+            var item = coreData.compactMap { SearchItemsViewModel(image: UIImage(data: $0.image!)!, title: $0.title ?? "", value: $0.value ?? "" , location: $0.location ?? "", sum: Int($0.sum), textName: $0.textName ?? "", textPhone: $0.textPhone ?? "", textMail: $0.textMail ?? "", router: router) }
+
+            //sections.insert(SectionItemsViewModel(items: item), at: 0)
+            item.reverse()
+            self.items.insert(contentsOf: item, at: 0)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
 
     // MARK: - Private functions
     
     func didTapAddButton() {
+        //router.dismiss()
     }
 }

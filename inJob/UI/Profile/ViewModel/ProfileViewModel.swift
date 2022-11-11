@@ -9,9 +9,9 @@ import Foundation
 
 protocol ProfileViewModelProtocol: AnyObject {
     
-    // MARK: - Properties
+    // MARK: - Functions
 
-    var sections: [SectionViewModelProtocol] { get }
+    func didTapAddButton()
 }
 
 final class ProfileViewModel: ProfileViewModelProtocol {
@@ -39,11 +39,11 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     }
 
     // MARK: - Functions
-
-
-    // MARK: - Private functions
     
     func didTapAddButton() {
+        router.moveToMyAdd()
     }
+    
+    // MARK: - Private functions
 }
 

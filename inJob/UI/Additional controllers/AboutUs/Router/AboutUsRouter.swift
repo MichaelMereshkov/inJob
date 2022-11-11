@@ -1,5 +1,5 @@
 //
-//  SettingsRouter.swift
+//  AboutUsRouter.swift
 //  inJob
 //
 //  Created by Михаил Мерешков on 10.11.2022.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol SettingsRouterProtocol: AnyObject {
+protocol AboutUsRouterProtocol: AnyObject {
     
 }
 
-final class SettingsRouter: SettingsRouterProtocol {
+final class AboutUsRouter: AboutUsRouterProtocol {
 
     // MARK: - Properties
 
