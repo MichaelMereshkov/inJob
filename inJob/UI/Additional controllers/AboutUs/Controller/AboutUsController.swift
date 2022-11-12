@@ -12,9 +12,28 @@ final class AboutUsController: UIViewController {
     // MARK: - Views
 
     private lazy var backBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_back"), style: .plain, target: self, action: #selector(backBarButtonDidTap))
-        barButton.imageInsets = UIEdgeInsets(top: 0, left: -13.0, bottom: 0, right: 13.0)
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backBarButtonDidTap))
+        barButton.tintColor = .darkGray
         return barButton
+    }()
+    
+    private lazy var iconImageView: UIImageView = {
+        let iconImageView = UIImageView()
+        iconImageView.image = #imageLiteral(resourceName: "log_search")
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return iconImageView
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label: UILabel = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .darkText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
 
@@ -44,24 +63,36 @@ final class AboutUsController: UIViewController {
 
     private func setupAppearance() {
         view.backgroundColor = .white
+        navigationItem.title = "О приложении"
+        navigationItem.leftBarButtonItem = backBarButton
+        navigationItem.leftBarButtonItem?.title = ""
+        navigationItem.leftBarButtonItem?.tintColor = .darkText
+        
+        view.addSubview(iconImageView)
+        view.addSubview(titleLabel)
+        
+        titleLabel.text = "Мы - команда Android и iOS разработчиков:\nМерешков Магомед, \nМерешков Магомед-Амин, \nЧаниев Магомед-Амин. \nПодготовили прототип приложения для хакатона, который устраивает Министерство промышленности и цифрового развития Республики Ингушетия, на тему:\n «Разработка полезного сервиса для Республики Ингушетия»."
         
         setupConstraints()
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            iconImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
+            iconImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
+            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            iconImageView.heightAnchor.constraint(equalTo: iconImageView.widthAnchor),
             
+            titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 32),
         ])
     }
-
+    
     // MARK: - Actions
 
     @objc
     private func backBarButtonDidTap() {
-        //viewModel.dismiss()
-    }
-
-    @objc func didTapButton() {
-        //viewModel.didTapAddButton()
+        navigationController?.popViewController(animated: true)
     }
 }

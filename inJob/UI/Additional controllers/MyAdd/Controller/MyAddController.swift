@@ -21,7 +21,6 @@ final class MyAddController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.dataSource = self
-        //tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,12 +85,7 @@ final class MyAddController: UIViewController {
 
     @objc
     private func backBarButtonDidTap() {
-        //viewModel.didTapAddButton()
         navigationController?.popViewController(animated: true)
-    }
-
-    @objc func didTapButton() {
-        //viewModel.didTapAddButton()
     }
 }
 

@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - Properties
 
-public var allItems = [TableCellViewModelProtocol]()
-public var textName = "Киборг Убийца"
-public var textPhone = "+7(006)006-06-06"
-public var textMail = "djigit@mail.ru"
+public var textName = "Ваше объявление"
+public var textPhone = "+7(006)***-06-06"
+public var textMail = "inJobTeam@inJob.ru"

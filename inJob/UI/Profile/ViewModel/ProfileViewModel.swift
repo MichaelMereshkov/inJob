@@ -11,7 +11,8 @@ protocol ProfileViewModelProtocol: AnyObject {
     
     // MARK: - Functions
 
-    func didTapAddButton()
+    func didTapAboutUs()
+    func didTapMyAdd()
 }
 
 final class ProfileViewModel: ProfileViewModelProtocol {
@@ -40,7 +41,11 @@ final class ProfileViewModel: ProfileViewModelProtocol {
 
     // MARK: - Functions
     
-    func didTapAddButton() {
+    func didTapAboutUs() {
+        router.moveToAboutUs()
+    }
+    
+    func didTapMyAdd() {
         router.moveToMyAdd()
     }
     

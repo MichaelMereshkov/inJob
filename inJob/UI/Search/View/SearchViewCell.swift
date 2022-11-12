@@ -51,6 +51,7 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     private lazy var titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.numberOfLines = 0
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -175,6 +176,14 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
         valueLabel.text = viewModel.value
         locationLabel.text = "Локация:  \(viewModel.location)"
         
+        if viewModel.isLaik == true {
+            iconImage.tintColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
+        }
+        
+        if viewModel.isFavorite == true {
+            buttonResponses.setTitle("Вы откликнулись", for: .normal)
+        }
+        
         if let price = currencyFormatter.string(from: viewModel.sum as NSNumber) {
             sumLabel.text = "Оплата:  \(String(format: price))"
         }
@@ -266,7 +275,6 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     
     @objc
     func didTapButtonRes() {
-        //buttonResponses.setBackgroundColor(.black, for: .normal)
         buttonResponses.setTitle("Вы откликнулись", for: .normal)
     }
 }

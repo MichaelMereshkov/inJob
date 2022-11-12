@@ -28,11 +28,7 @@ final class FavoritesController: UIViewController {
         
         tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
 
-//        tableView.register(DepositViewCell.self)
-//        tableView.register(DepositClinicsView.self)
-//        tableView.register(DepositInfoStoryView.self)
-//        tableView.register(DepositInfoPaymentView.self)
-//        tableView.register(DepositNotReplenishView.self)
+        tableView.register(SearchViewCell.self)
 
         return tableView
     }()

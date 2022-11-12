@@ -26,13 +26,7 @@ final class ResponsesController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-
-//        tableView.register(DepositViewCell.self)
-//        tableView.register(DepositClinicsView.self)
-//        tableView.register(DepositInfoStoryView.self)
-//        tableView.register(DepositInfoPaymentView.self)
-//        tableView.register(DepositNotReplenishView.self)
+        tableView.register(SearchViewCell.self)
 
         return tableView
     }()
@@ -92,40 +86,26 @@ final class ResponsesController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource & UITableViewDelegate
 
-// MARK: - UITableViewDataSource
-
-extension ResponsesController: UITableViewDataSource {
-
+extension ResponsesController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.items.count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.sections[indexPath.section].items[indexPath.row]
+        guard let item = viewModel.items.element(at: indexPath.section) else { return UITableViewCell() }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: item.cellId, for: indexPath)
         if let cell = cell as? TableCellConfigurable {
             cell.setup(viewModel: item)
         }
+        
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.sections.element(at: section)?.items.count ?? 0
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension ResponsesController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //viewModel.didSelectItem(at: indexPath)
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 12
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.sections.count
+        return 1
     }
 }

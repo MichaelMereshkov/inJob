@@ -23,7 +23,8 @@ final class ProfileController: UIViewController {
         let image = UIImageView()
         image.layer.cornerRadius = 50
         image.layer.masksToBounds = true
-        image.image = #imageLiteral(resourceName: "ava")
+        image.contentMode = .scaleAspectFill
+        image.image = #imageLiteral(resourceName: "avatarka")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -31,7 +32,7 @@ final class ProfileController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .regular)
-        label.text = "Киборг Убийца"
+        label.text = "Иван Иванов"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -40,7 +41,7 @@ final class ProfileController: UIViewController {
     private lazy var valueLabel: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
-        label.text = "+7(928)***-**-54"
+        label.text = "+7(928)***-06-06"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -65,7 +66,7 @@ final class ProfileController: UIViewController {
     private lazy var titleCell1Label: UILabel = {
         let label: UILabel = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
-        label.text = "Настройки"
+        label.text = "О оприложении"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -225,21 +226,12 @@ final class ProfileController: UIViewController {
     }
 
     // MARK: - Actions
-
-    @objc
-    private func backBarButtonDidTap() {
-        //viewModel.dismiss()
-    }
-
-    @objc func didTapButton() {
-        //viewModel.didTapAddButton()
-    }
     
     @objc func checkActionAboutUs(sender : UITapGestureRecognizer) {
-        print("r")
+        viewModel.didTapAboutUs()
     }
     
     @objc func checkActionMyAdd(sender : UITapGestureRecognizer) {
-        viewModel.didTapAddButton()
+        viewModel.didTapMyAdd()
     }
 }

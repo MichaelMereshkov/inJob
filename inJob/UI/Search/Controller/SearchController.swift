@@ -66,7 +66,6 @@ final class SearchController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //viewModel.fetch()
         viewModel.saveItems()
         tableView.reloadData()
     }
@@ -107,15 +106,6 @@ final class SearchController: UIViewController {
     func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         searchController.resignFirstResponder()
         }
-
-    @objc
-    private func backBarButtonDidTap() {
-        //viewModel.dismiss()
-    }
-
-    @objc func didTapButton() {
-        //viewModel.didTapAddButton()
-    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -148,9 +138,6 @@ extension SearchController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return viewModel.searchItems.count
-        }
         return 1
     }
 }
@@ -163,8 +150,6 @@ extension SearchController: UISearchResultsUpdating {
         viewModel.filterContentForSearchText(searchController.searchBar.text!)
         tableView.reloadData()
     }
-    
-    
 }
 
 

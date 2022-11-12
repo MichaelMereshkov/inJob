@@ -21,6 +21,8 @@ public protocol SearchItemsViewModelProtocol: AnyObject {
     var textName: String { get }
     var textPhone: String { get }
     var textMail: String { get }
+    var isLaik: Bool { get }
+    var isFavorite: Bool { get }
     var router: SearchRouterProtocol? { get }
     
 }
@@ -41,11 +43,13 @@ final class SearchItemsViewModel: SearchItemsViewModelProtocol, TableCellViewMod
     var textName: String
     var textPhone: String
     var textMail: String
+    var isLaik: Bool
+    var isFavorite: Bool
     var router: SearchRouterProtocol?
 
     // MARK: - Constructor
 
-    init(image: UIImage, title: String, value: String, location: String, sum: Int, textName: String, textPhone: String, textMail: String, router: SearchRouterProtocol?) {
+    init(image: UIImage, title: String, value: String, location: String, sum: Int, textName: String, textPhone: String, textMail: String, isLaik: Bool, isFavorite: Bool, router: SearchRouterProtocol?) {
         self.image = image
         self.title = title
         self.value = value
@@ -54,6 +58,8 @@ final class SearchItemsViewModel: SearchItemsViewModelProtocol, TableCellViewMod
         self.textName = textName
         self.textPhone = textPhone
         self.textMail = textMail
+        self.isLaik = isLaik
+        self.isFavorite = isFavorite
         self.router = router
     }
 }

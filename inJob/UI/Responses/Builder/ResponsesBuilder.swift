@@ -12,7 +12,7 @@ final class ResponsesBuilder {
     // MARK: - Functions
 
     static func build() -> UIViewController {
-        let router = ResponsesRouter()
+        let router = SearchRouter()
         let viewModel = ResponsesViewModel(router: router)
         let controller = ResponsesController(viewModel: viewModel)
         router.presenter = controller

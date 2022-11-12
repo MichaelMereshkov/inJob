@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "og_og_148879361322373683.jpeg",
+      "filename" : "log1.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "log1 1.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "log1 2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }

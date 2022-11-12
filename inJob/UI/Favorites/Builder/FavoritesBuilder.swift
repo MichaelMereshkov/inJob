@@ -12,7 +12,7 @@ final class FavoritesBuilder {
     // MARK: - Functions
 
     static func build() -> UIViewController {
-        let router = FavoritesRouter()
+        let router = SearchRouter()
         let viewModel = FavoritesViewModel(router: router)
         let controller = FavoritesController(viewModel: viewModel)
         router.presenter = controller
