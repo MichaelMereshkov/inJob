@@ -26,6 +26,7 @@ final class SearchController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +83,7 @@ final class SearchController: UIViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         view.backgroundColor = .white
+        //self.searchController.searchBar.endEditing(true)
 
         view.addSubview(tableView)
         
