@@ -122,9 +122,9 @@ final class ProfileController: UIViewController {
     init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        var tabBarItem = UITabBarItem()
-        tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), tag: 4)
-        self.tabBarItem = tabBarItem
+        self.title = "Профиль"
+//        tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), tag: 4)
+//        self.tabBarItem = tabBarItem
     }
 
     required init?(coder: NSCoder) {

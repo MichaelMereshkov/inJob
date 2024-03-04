@@ -87,7 +87,7 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 21
         button.setTitle("Контакты", for: .normal)
-        button.layer.borderColor = UIColor(ciColor: CIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)).cgColor
+        button.layer.borderColor = UIColor.inJob.cgColor
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +104,7 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     
     private lazy var buttonResponses: UIButton = {
         let button: UIButton = UIButton()
-        button.setBackgroundColor(UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1), for: .normal)
+        button.setBackgroundColor(.inJob, for: .normal)
         button.layer.cornerRadius = 21
         button.layer.masksToBounds = true
         button.setTitle("Откликнуться", for: .normal)
@@ -262,8 +262,8 @@ final class SearchViewCell: UITableViewCell, TableCellConfigurable {
     @objc
     func touchConfirmButton() {
         if iconImage.tintColor == .white {
-            iconImage.tintColor = UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1)
-        } else if iconImage.tintColor == UIColor(red: 0.77, green: 0.1, blue: 0.1, alpha: 1) {
+            iconImage.tintColor = .inJob
+        } else if iconImage.tintColor == .inJob {
             iconImage.tintColor = .white
         }
     }
