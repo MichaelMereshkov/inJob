@@ -226,7 +226,7 @@ final class AddController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.title = "Добавить"
-        self.tabBarItem.image = UIImage(systemName: "plus")
+        //self.tabBarItem.image = UIImage(systemName: "plus")
     }
 
     required init?(coder: NSCoder) {

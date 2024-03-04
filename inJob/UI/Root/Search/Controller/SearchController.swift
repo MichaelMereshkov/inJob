@@ -13,7 +13,7 @@ final class SearchController: UIViewController {
     
     private lazy var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-        search.resignFirstResponder()
+        search.searchBar.resignFirstResponder()
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "Введите название или категорию"
@@ -55,8 +55,6 @@ final class SearchController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.title = "inJob"
-        self.tabBarItem.title = "Поиск"
-        self.tabBarItem.image = UIImage(systemName: "magnifyingglass")
     }
 
     required init?(coder: NSCoder) {
@@ -64,6 +62,11 @@ final class SearchController: UIViewController {
     }
 
     // MARK: - LifeCycle
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,11 +83,16 @@ final class SearchController: UIViewController {
     // MARK: - Private functions
 
     private func setupAppearance() {
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        view.backgroundColor = .white
-        //self.searchController.searchBar.endEditing(true)
+        view.backgroundColor = .pureWhite
 
+//        navigationItem.largeTitleDisplayMode = .automatic
+//        navigationController?.navigationBar.sizeToFit()
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        //navigationItem.titleView = searchController.searchBar
+        definesPresentationContext = true
+        
         view.addSubview(tableView)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -97,7 +105,7 @@ final class SearchController: UIViewController {
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }

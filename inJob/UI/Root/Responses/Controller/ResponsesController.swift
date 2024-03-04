@@ -1,5 +1,5 @@
 //
-//  FavoritesController.swift
+//  ResponsesController.swift
 //  inJob
 //
 //  Created by Михаил Мерешков on 05.11.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FavoritesController: UIViewController {
+final class ResponsesController: UIViewController {
 
     // MARK: - Views
 
@@ -26,8 +26,6 @@ final class FavoritesController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-
         tableView.register(SearchViewCell.self)
 
         return tableView
@@ -35,19 +33,19 @@ final class FavoritesController: UIViewController {
 
     // MARK: - Private properties
 
-    private let viewModel: FavoritesViewModelProtocol
+    private let viewModel: ResponsesViewModelProtocol
 
     // MARK: - Initialization
-    
-    init(viewModel: FavoritesViewModelProtocol) {
+
+    init(viewModel: ResponsesViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.title = "Избранные"
-        self.tabBarItem.image = UIImage(systemName: "heart.fill")
+        self.title = "Отклики"
+        //self.tabBarItem.image = UIImage(systemName: "envelope.badge.fill")
     }
 
     required init?(coder: NSCoder) {
-        fatalError("FavoritesController ::: init(coder:) has not been implemented")
+        fatalError("ResponsesController ::: init(coder:) has not been implemented")
     }
 
     // MARK: - LifeCycle
@@ -90,7 +88,7 @@ final class FavoritesController: UIViewController {
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 
-extension FavoritesController: UITableViewDataSource, UITableViewDelegate {
+extension ResponsesController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.items.count
@@ -111,5 +109,3 @@ extension FavoritesController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
 }
-
-

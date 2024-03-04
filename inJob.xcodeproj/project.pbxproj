@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C5534B12B1E422B00AA8C48 /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5534B02B1E422B00AA8C48 /* RootController.swift */; };
+		4C5534B32B1E426D00AA8C48 /* RootController+UIToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5534B22B1E426D00AA8C48 /* RootController+UIToolbar.swift */; };
+		4C5534B62B1E46B800AA8C48 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5534B52B1E46B800AA8C48 /* UIColor+Extension.swift */; };
+		4C6D0D6C2B1E787F00B40F58 /* ControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6D0D6B2B1E787F00B40F58 /* ControllerManager.swift */; };
+		4C6D0D6E2B1E78A000B40F58 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6D0D6D2B1E78A000B40F58 /* Router.swift */; };
 		D42808A0291AA73D0083E826 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D428089F291AA73D0083E826 /* ContactsViewModel.swift */; };
 		D42808A2291AA7C50083E826 /* ContactsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42808A1291AA7C50083E826 /* ContactsRouter.swift */; };
 		D42808A4291AA7E10083E826 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42808A3291AA7E10083E826 /* ContactsController.swift */; };
@@ -78,6 +83,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C5534B02B1E422B00AA8C48 /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
+		4C5534B22B1E426D00AA8C48 /* RootController+UIToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootController+UIToolbar.swift"; sourceTree = "<group>"; };
+		4C5534B52B1E46B800AA8C48 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		4C6D0D6B2B1E787F00B40F58 /* ControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerManager.swift; sourceTree = "<group>"; };
+		4C6D0D6D2B1E78A000B40F58 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		D428089F291AA73D0083E826 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		D42808A1291AA7C50083E826 /* ContactsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsRouter.swift; sourceTree = "<group>"; };
 		D42808A3291AA7E10083E826 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
@@ -160,6 +170,80 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C5534A82B1E33A000AA8C48 /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				D46AC0D629169C1800CBC039 /* AppDelegate.swift */,
+				D46AC0D829169C1800CBC039 /* SceneDelegate.swift */,
+			);
+			name = "Support files";
+			sourceTree = "<group>";
+		};
+		4C5534AA2B1E346A00AA8C48 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				4C5534B42B1E469A00AA8C48 /* Extensions */,
+				D46AC1172916B4E400CBC039 /* TableViewCell */,
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		4C5534AB2B1E3C4000AA8C48 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4C5534AC2B1E3C4600AA8C48 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		4C5534AE2B1E418B00AA8C48 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				4C5534AF2B1E41EB00AA8C48 /* Controller */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		4C5534AF2B1E41EB00AA8C48 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4C5534B02B1E422B00AA8C48 /* RootController.swift */,
+				4C5534B22B1E426D00AA8C48 /* RootController+UIToolbar.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4C5534B42B1E469A00AA8C48 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4C5534B52B1E46B800AA8C48 /* UIColor+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4C5534B72B1E4AC300AA8C48 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D46AC0E229169C1900CBC039 /* Assets.xcassets */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		4C6D0D6A2B1E784600B40F58 /* MainRouter */ = {
+			isa = PBXGroup;
+			children = (
+				4C6D0D6B2B1E787F00B40F58 /* ControllerManager.swift */,
+				4C6D0D6D2B1E78A000B40F58 /* Router.swift */,
+			);
+			path = MainRouter;
+			sourceTree = "<group>";
+		};
 		D4280899291AA5EA0083E826 /* Additional controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,8 +302,6 @@
 			children = (
 				D46AC0D529169C1800CBC039 /* inJob */,
 				D46AC1212916BEAF00CBC039 /* Model */,
-				D46AC1172916B4E400CBC039 /* Protocol */,
-				D46AC11E2916B93800CBC039 /* Extensions */,
 				D46AC0EF29169C1900CBC039 /* inJobTests */,
 				D46AC0F929169C1900CBC039 /* inJobUITests */,
 				D46AC0D429169C1800CBC039 /* Products */,
@@ -239,10 +321,14 @@
 		D46AC0D529169C1800CBC039 /* inJob */ = {
 			isa = PBXGroup;
 			children = (
-				D46AC0D629169C1800CBC039 /* AppDelegate.swift */,
-				D46AC0D829169C1800CBC039 /* SceneDelegate.swift */,
+				4C6D0D6A2B1E784600B40F58 /* MainRouter */,
+				4C5534AC2B1E3C4600AA8C48 /* API */,
+				4C5534AB2B1E3C4000AA8C48 /* Common */,
 				D46AC12A2916C67000CBC039 /* UI */,
-				D46AC0E229169C1900CBC039 /* Assets.xcassets */,
+				4C5534B72B1E4AC300AA8C48 /* Images */,
+				4C5534AA2B1E346A00AA8C48 /* UIComponent */,
+				D46AC11E2916B93800CBC039 /* Extensions */,
+				4C5534A82B1E33A000AA8C48 /* Support files */,
 				D46AC0E429169C1900CBC039 /* LaunchScreen.storyboard */,
 				D46AC0E729169C1900CBC039 /* Info.plist */,
 				D46AC0DF29169C1800CBC039 /* inJob.xcdatamodeld */,
@@ -312,14 +398,14 @@
 			path = Builder;
 			sourceTree = "<group>";
 		};
-		D46AC1172916B4E400CBC039 /* Protocol */ = {
+		D46AC1172916B4E400CBC039 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				D46AC1182916B52600CBC039 /* TableCellConfigurable.swift */,
 				D46AC11A2916B54E00CBC039 /* TableCellViewModelProtocol.swift */,
 				D46AC11C2916B63800CBC039 /* SectionViewModelProtocol.swift */,
 			);
-			path = Protocol;
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		D46AC11E2916B93800CBC039 /* Extensions */ = {
@@ -388,6 +474,7 @@
 		D46AC12A2916C67000CBC039 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4C5534AE2B1E418B00AA8C48 /* Root */,
 				D46AC10B2916AFF800CBC039 /* Search */,
 				D46AC1262916C58A00CBC039 /* Favorites */,
 				D46AC1282916C59100CBC039 /* Add */,
@@ -759,6 +846,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5534B62B1E46B800AA8C48 /* UIColor+Extension.swift in Sources */,
 				D46AC1132916B18600CBC039 /* SearchRouter.swift in Sources */,
 				D46AC0E129169C1800CBC039 /* inJob.xcdatamodeld in Sources */,
 				D46AC1422916C80A00CBC039 /* FavoritesController.swift in Sources */,
@@ -768,10 +856,12 @@
 				D42808A6291AA7F00083E826 /* ContactsBuilder.swift in Sources */,
 				D46AC1152916B1F300CBC039 /* SearchBuilder.swift in Sources */,
 				D46AC1642916F68700CBC039 /* SearchViewCell.swift in Sources */,
+				4C6D0D6E2B1E78A000B40F58 /* Router.swift in Sources */,
 				D46AC0DB29169C1800CBC039 /* SearchController.swift in Sources */,
 				D46AC0D729169C1800CBC039 /* AppDelegate.swift in Sources */,
 				D46AC1542916C89100CBC039 /* ResponsesController.swift in Sources */,
 				D42808A0291AA73D0083E826 /* ContactsViewModel.swift in Sources */,
+				4C5534B32B1E426D00AA8C48 /* RootController+UIToolbar.swift in Sources */,
 				D4DA22F3291D67770058B0F5 /* AboutUsBuilder.swift in Sources */,
 				D46AC0D929169C1800CBC039 /* SceneDelegate.swift in Sources */,
 				D46AC1232916BEC200CBC039 /* GlobalVariable.swift in Sources */,
@@ -781,6 +871,7 @@
 				D46AC1402916C7F300CBC039 /* FavoritesRouter.swift in Sources */,
 				D46AC1202916B96100CBC039 /* RandomCollection+Extensions.swift in Sources */,
 				D4DA22F7291D67BD0058B0F5 /* MyAddRouter.swift in Sources */,
+				4C5534B12B1E422B00AA8C48 /* RootController.swift in Sources */,
 				D42808A4291AA7E10083E826 /* ContactsController.swift in Sources */,
 				D46AC1442916C81400CBC039 /* FavoritesBuilder.swift in Sources */,
 				D4DA22EF291D67630058B0F5 /* AboutUsRouter.swift in Sources */,
@@ -791,6 +882,7 @@
 				D46AC11B2916B54E00CBC039 /* TableCellViewModelProtocol.swift in Sources */,
 				D46AC11D2916B63800CBC039 /* SectionViewModelProtocol.swift in Sources */,
 				D46AC1502916C87800CBC039 /* ResponsesViewModel.swift in Sources */,
+				4C6D0D6C2B1E787F00B40F58 /* ControllerManager.swift in Sources */,
 				D4DA22F9291D67D60058B0F5 /* MyAddController.swift in Sources */,
 				D46AC1522916C88200CBC039 /* ResponsesRouter.swift in Sources */,
 				D46AC14C2916C85A00CBC039 /* AddRouter.swift in Sources */,
@@ -974,7 +1066,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZRRAFM55PQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = inJob/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1004,7 +1096,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZRRAFM55PQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = inJob/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
